@@ -8,504 +8,134 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background: #FFFFFF;
-            color: #111111;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background: #FFFFFF; 
+            color: #111111; 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
             overflow: hidden;
         }
-
-        .app-container {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            max-width: 1600px;
-            margin: 0 auto;
-            width: 100%;
+        .app-container { 
+            display: flex; 
+            flex-direction: column; 
+            height: 100%; 
+            max-width: 1600px; 
+            margin: 0 auto; 
+            width: 100%; 
             background: #fff;
-        }
-
-        .header {
-            padding: 12px 24px;
-            border-bottom: 1px solid #EDEDED;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: white;
-            flex-shrink: 0;
-        }
-
-        .logo-area {
-            display: flex;
-            align-items: baseline;
-            gap: 6px;
-        }
-
-        .logo {
-            font-weight: 800;
-            font-size: 1.5rem;
-            letter-spacing: -0.02em;
-            color: #000;
-        }
-
-        .logo-sub {
-            font-size: 0.7rem;
-            font-weight: 500;
-            color: #888;
-        }
-
-        .upgrade-btn {
-            background: transparent;
-            border: 1px solid #DDD;
-            padding: 7px 18px;
-            border-radius: 32px;
-            font-weight: 600;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: 0.2s;
-            color: #111;
-        }
-
-        .upgrade-btn:hover {
-            background: #F5F5F5;
-            border-color: #AAA;
-        }
-
-        .main-layout {
-            display: flex;
-            flex: 1;
-            overflow: hidden;
-            padding: 8px 0 8px 0;
-        }
-
-        .chats-sidebar {
-            width: 280px;
-            background: #FAFAFA;
-            border-right: 1px solid #EFEFEF;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-            padding: 16px 12px;
-            gap: 12px;
-            flex-shrink: 0;
-        }
-
-        .sidebar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 8px 8px 8px;
-            border-bottom: 1px solid #E8E8E8;
-        }
-
-        .chats-header {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #999;
-            font-weight: 600;
-        }
-
-        .new-chat-small {
-            background: #000;
-            color: white;
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: 0.2s;
-        }
-
-        .new-chat-small:hover {
-            background: #2c2c2c;
-        }
-
-        .chats-list {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            flex: 1;
-        }
-
-        .chat-item {
-            padding: 10px 12px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            color: #2c2c2c;
-            transition: 0.1s;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: transparent;
-            font-weight: 500;
-            gap: 8px;
-        }
-
-        .chat-item:hover {
-            background: #F0F0F0;
-        }
-
-        .chat-item.active {
-            background: #EBEBEB;
-            font-weight: 600;
-            color: #000;
-        }
-
-        .chat-item.pinned {
-            background: #F5F5F5;
-            border-left: 3px solid #000;
-        }
-
-        .chat-name {
-            flex: 1;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            cursor: pointer;
-        }
-
-        .chat-actions {
-            display: flex;
-            gap: 6px;
-            opacity: 0;
-            transition: 0.1s;
-        }
-
-        .chat-item:hover .chat-actions {
-            opacity: 1;
-        }
-
-        .chat-action-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #888;
-            font-size: 0.7rem;
-            padding: 2px 4px;
-            border-radius: 6px;
-        }
-
-        .chat-action-btn:hover {
-            color: #000;
-            background: #E0E0E0;
-        }
-
-        .pin-btn.pinned {
-            color: #000;
-        }
-
-        .subscription-panel {
-            margin-top: auto;
-            padding: 12px 8px;
-            border-top: 1px solid #E8E8E8;
-        }
-
-        .plan-chip {
-            background: #fff;
-            border-radius: 24px;
-            padding: 10px 12px;
-            border: 1px solid #EAEAEA;
-        }
-
-        .plan-name-side {
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
-
-        .usage-bar {
-            background: #E8E8E8;
-            border-radius: 20px;
-            height: 4px;
-            margin: 8px 0;
             overflow: hidden;
         }
-
-        .usage-fill {
-            background: #000;
-            height: 4px;
-            width: 0%;
-            border-radius: 20px;
+        .header { 
+            padding: 12px 24px; 
+            border-bottom: 1px solid #EDEDED; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background: white; 
+            flex-shrink: 0; 
         }
-
-        .chat-area {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            background: #FFFFFF;
-            overflow: hidden;
+        .logo-area { display: flex; align-items: baseline; gap: 6px; }
+        .logo { font-weight: 800; font-size: 1.5rem; letter-spacing: -0.02em; color: #000; }
+        .logo-sub { font-size: 0.7rem; font-weight: 500; color: #888; }
+        
+        .main-layout { display: flex; flex: 1; overflow: hidden; }
+        
+        .chats-sidebar { 
+            width: 260px; 
+            background: #FAFAFA; 
+            border-right: 1px solid #EFEFEF; 
+            display: flex; 
+            flex-direction: column; 
+            overflow-y: auto; 
+            flex-shrink: 0; 
         }
-
-        .messages-container {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px 28px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .message {
-            display: flex;
-            gap: 12px;
-            max-width: 85%;
-            animation: fadeSlide 0.2s ease;
-        }
-
-        .message.user {
-            align-self: flex-end;
-            flex-direction: row-reverse;
-        }
-
-        .avatar {
-            width: 34px;
-            height: 34px;
-            background: #F2F2F2;
-            border-radius: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-            flex-shrink: 0;
-        }
-
-        .message.user .avatar {
-            background: #000;
-            color: white;
-        }
-
-        .bubble {
-            background: #F6F6F6;
-            padding: 12px 18px;
-            border-radius: 22px;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            color: #111;
-            word-break: break-word;
-            font-weight: 400;
-        }
-
-        .message.user .bubble {
-            background: #000;
-            color: white;
-        }
-
+        .top-bar { padding: 16px 12px 8px 12px; border-bottom: 1px solid #E8E8E8; flex-shrink: 0; }
+        .plan-chip-top { background: #fff; border-radius: 24px; padding: 10px 12px; border: 1px solid #EAEAEA; margin-bottom: 8px; }
+        .plan-name-top { font-weight: 700; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; }
+        .usage-bar-top { background: #E8E8E8; border-radius: 20px; height: 4px; margin: 8px 0; overflow: hidden; }
+        .usage-fill-top { background: #000; height: 4px; width: 0%; border-radius: 20px; }
+        .plans-button { width: 100%; background: #F0F0F0; border: 1px solid #E0E0E0; padding: 8px 12px; border-radius: 40px; font-weight: 600; font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; color: #111; transition: 0.2s; }
+        .plans-button:hover { background: #E8E8E8; }
+        
+        .chats-section { flex: 1; display: flex; flex-direction: column; overflow: hidden; padding: 12px 12px 0 12px; }
+        .sidebar-header { display: flex; justify-content: space-between; align-items: center; padding: 0 8px 8px 8px; margin-bottom: 8px; }
+        .chats-header { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: #999; font-weight: 600; }
+        .new-chat-small { background: #000; color: white; border: none; width: 28px; height: 28px; border-radius: 28px; cursor: pointer; font-size: 0.75rem; transition: 0.2s; }
+        .new-chat-small:hover { background: #2c2c2c; }
+        .chats-list { display: flex; flex-direction: column; gap: 4px; overflow-y: auto; padding-bottom: 16px; }
+        .chat-item { padding: 10px 12px; border-radius: 12px; cursor: pointer; font-size: 0.85rem; color: #2c2c2c; display: flex; justify-content: space-between; align-items: center; background: transparent; font-weight: 500; gap: 8px; transition: 0.1s; }
+        .chat-item:hover { background: #F0F0F0; }
+        .chat-item.active { background: #EBEBEB; font-weight: 600; color: #000; }
+        .chat-item.pinned { background: #F5F5F5; border-left: 3px solid #000; }
+        .chat-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; cursor: pointer; }
+        .chat-actions { display: flex; gap: 6px; opacity: 0; transition: 0.1s; }
+        .chat-item:hover .chat-actions { opacity: 1; }
+        .chat-action-btn { background: none; border: none; cursor: pointer; color: #888; font-size: 0.7rem; padding: 2px 4px; border-radius: 6px; }
+        .chat-action-btn:hover { color: #000; background: #E0E0E0; }
+        .pin-btn.pinned { color: #000; }
+        
+        .chat-area { flex: 1; display: flex; flex-direction: column; background: #FFFFFF; overflow: hidden; }
+        .messages-container { flex: 1; overflow-y: auto; padding: 20px 28px; display: flex; flex-direction: column; gap: 16px; }
+        .message { display: flex; gap: 12px; max-width: 85%; animation: fadeSlide 0.2s ease; }
+        .message.user { align-self: flex-end; flex-direction: row-reverse; }
+        .avatar { width: 34px; height: 34px; background: #F2F2F2; border-radius: 100%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; }
+        .message.user .avatar { background: #000; color: white; }
+        .bubble { background: #F6F6F6; padding: 10px 16px; border-radius: 20px; font-size: 0.9rem; line-height: 1.45; color: #111; word-break: break-word; font-weight: 400; }
+        .message.user .bubble { background: #000; color: white; }
+        
         .mode-badge {
             font-size: 0.65rem;
             color: #888;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             font-weight: 500;
         }
-
-        .code-block-wrapper {
-            position: relative;
-            margin: 10px 0;
-            background: #F0F2F5;
-            border-radius: 14px;
-            overflow: hidden;
-            border: 1px solid #E2E6EA;
-        }
-
-        .code-header {
-            display: flex;
-            justify-content: flex-end;
-            padding: 6px 10px;
-            background: #E8ECF0;
-            border-bottom: 1px solid #DCE0E5;
-        }
-
-        .copy-code-btn {
-            background: #FFFFFF;
-            border: 1px solid #CCD0D5;
-            color: #1A1A1A;
-            font-size: 0.7rem;
-            padding: 4px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-        }
-
-        .code-block {
-            padding: 14px;
-            margin: 0;
-            overflow-x: auto;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            line-height: 1.5;
-            color: #1E1E1E;
-            background: #F8F9FA;
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
-
-        .process-container {
-            background: #F6F6F6;
-            border-radius: 22px;
-            padding: 12px 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            width: 100%;
-            max-width: 450px;
-        }
-
-        .process-step {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.8rem;
-            color: #444;
-        }
-
-        .process-step .step-icon {
-            width: 18px;
-            text-align: center;
-        }
-
-        .process-step.active .step-icon {
-            color: #000;
-        }
-
-        .process-step.active .step-text {
-            color: #000;
-            font-weight: 500;
-        }
-
-        .process-step.completed .step-icon {
-            color: #22c55e;
-        }
-
-        .step-spinner {
-            width: 12px;
-            height: 12px;
-            border: 2px solid #E0E0E0;
-            border-top-color: #000;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            display: inline-block;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .typing-cursor {
-            display: inline-block;
-            width: 2px;
-            height: 1.1em;
-            background-color: #000;
-            margin-left: 2px;
-            vertical-align: middle;
-            animation: blink 1s step-end infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        .input-area {
-            border-top: 1px solid #EDEDED;
-            padding: 16px 24px 20px;
-            background: white;
-            flex-shrink: 0;
-        }
-
-        .input-wrapper {
-            display: flex;
-            gap: 12px;
-            align-items: flex-end;
-            background: #FCFCFC;
-            border-radius: 48px;
-            padding: 6px 6px 6px 22px;
-            border: 1px solid #E8E8E8;
-        }
-
-        .input-wrapper:focus-within {
-            border-color: #AAA;
-        }
-
-        .input-wrapper textarea {
-            flex: 1;
-            border: none;
-            background: transparent;
-            padding: 12px 0;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.9rem;
-            resize: none;
-            outline: none;
-            max-height: 100px;
-        }
-
-        .send-btn {
-            background: #000;
-            border: none;
-            width: 38px;
-            height: 38px;
-            border-radius: 38px;
-            color: white;
-            cursor: pointer;
-        }
-
-        .send-btn:disabled {
-            background: #CCC;
-        }
-
-        @keyframes fadeSlide {
-            from { opacity: 0; transform: translateY(6px);}
-            to { opacity: 1; transform: translateY(0);}
-        }
-
-        @media (max-width: 680px) {
-            .chats-sidebar { display: none; }
-            .message { max-width: 96%; }
+        
+        .code-block-wrapper { position: relative; margin: 8px 0; background: #F0F2F5; border-radius: 12px; overflow: hidden; border: 1px solid #E2E6EA; }
+        .code-header { display: flex; justify-content: flex-end; padding: 5px 10px; background: #E8ECF0; border-bottom: 1px solid #DCE0E5; }
+        .copy-code-btn { background: #FFFFFF; border: 1px solid #CCD0D5; color: #1A1A1A; font-size: 0.7rem; padding: 3px 10px; border-radius: 20px; cursor: pointer; font-weight: 600; transition: 0.2s; }
+        .copy-code-btn:hover { background: #F0F2F5; }
+        .code-block { padding: 12px; margin: 0; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; line-height: 1.45; color: #1E1E1E; background: #F8F9FA; white-space: pre-wrap; word-break: break-word; }
+        
+        .process-container { background: #F6F6F6; border-radius: 20px; padding: 14px 18px; display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 500px; }
+        .process-step { display: flex; align-items: center; gap: 12px; font-size: 0.85rem; color: #444; }
+        .process-step .step-icon { width: 20px; text-align: center; font-size: 0.85rem; }
+        .process-step .step-text { font-size: 0.85rem; }
+        .process-step.active .step-icon { color: #000; }
+        .process-step.active .step-text { color: #000; font-weight: 600; }
+        .process-step.completed .step-icon { color: #22c55e; }
+        .step-spinner { width: 14px; height: 14px; border: 2px solid #E0E0E0; border-top-color: #000; border-radius: 50%; animation: spin 0.8s linear infinite; display: inline-block; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .typing-cursor { display: inline-block; width: 2px; height: 1em; background-color: #000; margin-left: 2px; vertical-align: middle; animation: blink 1s step-end infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        
+        .input-area { border-top: 1px solid #EDEDED; padding: 16px 24px 20px 24px; background: white; flex-shrink: 0; }
+        .input-wrapper { display: flex; gap: 12px; align-items: flex-end; background: #FCFCFC; border-radius: 48px; padding: 6px 6px 6px 22px; border: 1px solid #E8E8E8; }
+        .input-wrapper:focus-within { border-color: #AAA; }
+        .input-wrapper textarea { flex: 1; border: none; background: transparent; padding: 12px 0; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; resize: none; outline: none; max-height: 100px; }
+        .send-btn { background: #000; border: none; width: 38px; height: 38px; border-radius: 38px; color: white; cursor: pointer; transition: 0.2s; }
+        .send-btn:disabled { background: #CCC; cursor: not-allowed; }
+        
+        @keyframes fadeSlide { from { opacity: 0; transform: translateY(6px);} to { opacity: 1; transform: translateY(0);} }
+        
+        @media (max-width: 768px) {
+            .chats-sidebar { width: 220px; }
+            .message { max-width: 95%; }
             .messages-container { padding: 16px; }
+            .input-area { padding: 12px 16px 16px 16px; }
         }
-
+        
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
-
-        .toast {
-            position: fixed;
-            bottom: 80px;
-            right: 24px;
-            background: #1a1a1a;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 40px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            z-index: 1000;
-            animation: fadeOut 2s ease forwards;
-            pointer-events: none;
-        }
-
-        @keyframes fadeOut {
-            0% { opacity: 1; transform: translateY(0); }
-            70% { opacity: 1; }
-            100% { opacity: 0; transform: translateY(-20px); visibility: hidden; }
-        }
-
-        .rename-input {
-            flex: 1;
-            border: 1px solid #CCC;
-            border-radius: 8px;
-            padding: 4px 8px;
-            font-size: 0.8rem;
-            font-family: 'Montserrat', sans-serif;
+        .toast { position: fixed; bottom: 80px; right: 24px; background: #1a1a1a; color: white; padding: 8px 16px; border-radius: 40px; font-size: 0.75rem; font-weight: 500; z-index: 2000; animation: fadeOut 2s ease forwards; pointer-events: none; }
+        @keyframes fadeOut { 0% { opacity: 1; transform: translateY(0); } 70% { opacity: 1; } 100% { opacity: 0; transform: translateY(-15px); visibility: hidden; } }
+        
+        .bubble strong {
+            font-weight: 700;
+            color: inherit;
         }
     </style>
 </head>
@@ -513,29 +143,38 @@
 <div class="app-container">
     <div class="header">
         <div class="logo-area"><span class="logo">Mindcode</span><span class="logo-sub">intelligence</span></div>
-        <button class="upgrade-btn" id="showPlansBtn"><i class="fas fa-gem"></i> Тарифы</button>
+        <div style="width: 70px;"></div>
     </div>
     <div class="main-layout">
         <div class="chats-sidebar">
-            <div class="sidebar-header">
-                <span class="chats-header">История</span>
-                <button class="new-chat-small" id="newChatSidebarBtn"><i class="fas fa-plus"></i></button>
-            </div>
-            <div class="chats-list" id="chatsList"></div>
-            <div class="subscription-panel">
-                <div class="plan-chip">
-                    <div class="plan-name-side" id="miniPlanName">Free</div>
-                    <div class="usage-bar"><div class="usage-fill" id="usageFillBar"></div></div>
-                    <div style="font-size:0.7rem; color:#666;" id="miniUsageText">0 / 5 запросов</div>
-                    <button id="miniUpgradeBtn" style="margin-top:8px; background:#000; color:white; border:none; border-radius:20px; padding:4px 12px; font-size:0.7rem; width:100%; cursor:pointer;">Активировать Pro</button>
+            <div class="top-bar">
+                <div class="plan-chip-top">
+                    <div class="plan-name-top">
+                        <span id="sidebarPlanName">Free</span>
+                        <span style="font-size:0.7rem; color:#666;" id="sidebarUsageText">0/5</span>
+                    </div>
+                    <div class="usage-bar-top"><div class="usage-fill-top" id="usageFillTop"></div></div>
                 </div>
+                <button class="plans-button" id="showPlansBtn"><i class="fas fa-tags"></i> Тарифы</button>
+            </div>
+            <div class="chats-section">
+                <div class="sidebar-header">
+                    <span class="chats-header">История</span>
+                    <button class="new-chat-small" id="newChatSidebarBtn"><i class="fas fa-plus"></i></button>
+                </div>
+                <div class="chats-list" id="chatsList"></div>
             </div>
         </div>
         <div class="chat-area">
-            <div class="messages-container" id="messagesContainer"></div>
+            <div class="messages-container" id="messagesContainer">
+                <div class="message assistant">
+                    <div class="avatar"><i class="fas fa-brain"></i></div>
+                    <div class="bubble"><div class="mode-badge">Free режим</div>Привет! Я Mindcode AI. Напишите, что нужно сделать — код, игру, API, бота. Я работаю через нейросеть, поэтому умею почти всё!</div>
+                </div>
+            </div>
             <div class="input-area">
                 <div class="input-wrapper">
-                    <textarea id="promptInput" rows="1" placeholder="Напишите промт... Например: создай змейку на js, напиши API на FastAPI, что ты умеешь"></textarea>
+                    <textarea id="promptInput" rows="1" placeholder="Напишите промт..."></textarea>
                     <button class="send-btn" id="sendBtn"><i class="fas fa-arrow-up"></i></button>
                 </div>
             </div>
@@ -543,7 +182,7 @@
     </div>
 </div>
 
-<div id="plansModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); align-items:center; justify-content:center; z-index:1000;">
+<div id="plansModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); align-items:center; justify-content:center; z-index:2000;">
     <div style="background:white; max-width:500px; width:90%; border-radius:32px; padding:28px;">
         <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
             <h3 style="font-weight:700;">Выберите тариф</h3>
@@ -570,10 +209,17 @@
 </div>
 
 <script>
+    // ============================================================
+    // 🔑 ВСТАВЬ СВОЙ API-КЛЮЧ СЮДА (из cloud.sambanova.ai)
+    // ============================================================
+    const SAMBANOVA_API_KEY = "6329c000-1e83-4704-8432-b11205631d84";  // <- ЗАМЕНИ НА РЕАЛЬНЫЙ КЛЮЧ
+    
+    const API_URL = "https://api.sambanova.ai/v1/chat/completions";
+    
     let currentTier = "free";      
     let usedRequests = 0;
     let maxRequests = 5;
-    let pendingResponse = false;
+    let isProcessing = false;
     let activeChatId = null;
     let chats = [];
 
@@ -581,10 +227,9 @@
     const promptInput = document.getElementById('promptInput');
     const sendBtn = document.getElementById('sendBtn');
     const chatsListDiv = document.getElementById('chatsList');
-    const miniPlanName = document.getElementById('miniPlanName');
-    const miniUsageText = document.getElementById('miniUsageText');
-    const usageFillBar = document.getElementById('usageFillBar');
-    const miniUpgradeBtn = document.getElementById('miniUpgradeBtn');
+    const sidebarPlanName = document.getElementById('sidebarPlanName');
+    const sidebarUsageText = document.getElementById('sidebarUsageText');
+    const usageFillTop = document.getElementById('usageFillTop');
     const newChatSidebarBtn = document.getElementById('newChatSidebarBtn');
     const showPlansBtn = document.getElementById('showPlansBtn');
     const plansModal = document.getElementById('plansModal');
@@ -594,18 +239,21 @@
     
     function updateUsageUI() {
         let percent = (usedRequests/maxRequests)*100;
-        usageFillBar.style.width = `${Math.min(percent,100)}%`;
-        miniUsageText.innerText = `${usedRequests} / ${maxRequests} запросов`;
-        miniPlanName.innerText = currentTier==="free"?"Free":currentTier==="pro"?"Pro":"Team";
-        sendBtn.disabled = (usedRequests>=maxRequests && currentTier!=="team") || pendingResponse;
-        promptInput.disabled = (usedRequests>=maxRequests && currentTier!=="team");
+        usageFillTop.style.width = `${Math.min(percent,100)}%`;
+        sidebarUsageText.innerText = `${usedRequests}/${maxRequests}`;
+        sidebarPlanName.innerText = currentTier==="free"?"Free":currentTier==="pro"?"Pro":"Team";
+        let limitReached = (usedRequests>=maxRequests && currentTier!=="team");
+        sendBtn.disabled = limitReached || isProcessing;
+        promptInput.disabled = limitReached;
     }
+    
     function saveToLocal() {
         localStorage.setItem('mindcode_chats', JSON.stringify(chats));
         localStorage.setItem('mindcode_activeChat', activeChatId);
         localStorage.setItem('mindcode_tier', currentTier);
         localStorage.setItem('mindcode_used', usedRequests);
     }
+    
     function loadFromLocal() {
         let saved = localStorage.getItem('mindcode_chats');
         if(saved) chats = JSON.parse(saved);
@@ -618,7 +266,7 @@
         else if(currentTier==="pro") maxRequests=200;
         else maxRequests=1000;
         if(!chats.length) {
-            chats = [{ id: Date.now(), title: "Новый чат", pinned: false, messages: [{ role: "assistant", content: "Привет! Я Mindcode AI. Напишите любой запрос." }] }];
+            chats = [{ id: Date.now(), title: "Новый чат", pinned: false, messages: [{ role: "assistant", content: "Привет! Я Mindcode AI. Напишите, что нужно сделать." }] }];
             activeChatId = chats[0].id;
         } else if(savedActive && chats.find(c=>c.id==savedActive)) activeChatId = savedActive;
         else activeChatId = chats[0].id;
@@ -626,6 +274,7 @@
         renderCurrentChat();
         updateUsageUI();
     }
+    
     function renderChatsList() {
         chatsListDiv.innerHTML = '';
         let sorted = [...chats].sort((a,b)=> (b.pinned?1:0) - (a.pinned?1:0));
@@ -655,6 +304,7 @@
             chatsListDiv.appendChild(div);
         });
     }
+    
     function renderCurrentChat() {
         let chat = chats.find(c=>c.id===activeChatId);
         if(!chat) return;
@@ -665,57 +315,91 @@
         });
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
+    
     function displayUserMessageStatic(content) {
         let div = document.createElement('div'); div.className='message user';
         div.innerHTML = `<div class="avatar"><i class="fas fa-user"></i></div><div class="bubble">${escapeHtml(content).replace(/\n/g,'<br>')}</div>`;
         messagesContainer.appendChild(div);
     }
-    function displayAssistantMessageStatic(content, mode='Free') {
+    
+    function formatBold(text) {
+        return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    }
+    
+    function displayAssistantMessageStatic(content, mode) {
         let div = document.createElement('div'); div.className='message assistant';
-        let modeHtml = `<div class="mode-badge">${mode} режим</div>`;
-        div.innerHTML = `<div class="avatar"><i class="fas fa-brain"></i></div><div class="bubble">${modeHtml}${formatContentWithCodeBlocks(content)}</div>`;
+        let modeHtml = mode ? `<div class="mode-badge">${mode} режим</div>` : '';
+        let formattedContent = formatContentWithCodeBlocks(content);
+        div.innerHTML = `<div class="avatar"><i class="fas fa-brain"></i></div><div class="bubble">${modeHtml}${formattedContent}</div>`;
         messagesContainer.appendChild(div);
         attachCopyEvents();
     }
+    
     function formatContentWithCodeBlocks(content) {
         let escaped = escapeHtml(content);
+        escaped = formatBold(escaped);
         let codeRegex = /```(\w*)\n([\s\S]*?)```/g;
         let formatted = escaped.replace(codeRegex, (match, lang, code) => {
             let cleanCode = code.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
-            return `<div class="code-block-wrapper"><div class="code-header"><button class="copy-code-btn" data-code="${escapeHtml(cleanCode).replace(/"/g,'&quot;')}">Копировать код</button></div><pre class="code-block"><code>${escapeHtml(cleanCode)}</code></pre></div>`;
+            return `<div class="code-block-wrapper"><div class="code-header"><button class="copy-code-btn" data-code="${escapeHtml(cleanCode).replace(/"/g,'&quot;')}">Копировать</button></div><pre class="code-block"><code>${escapeHtml(cleanCode)}</code></pre></div>`;
         });
         return formatted.replace(/\n/g,'<br>');
     }
+    
     function attachCopyEvents() {
         document.querySelectorAll('.copy-code-btn').forEach(btn => {
             btn.removeEventListener('click', copyHandler);
             btn.addEventListener('click', copyHandler);
         });
     }
+    
     function copyHandler(e) {
         e.stopPropagation();
         let code = e.currentTarget.getAttribute('data-code');
-        if(code) { navigator.clipboard.writeText(code); showToast('Код скопирован'); let orig = e.currentTarget.innerText; e.currentTarget.innerText='Готово'; setTimeout(()=>{ e.currentTarget.innerText=orig; },1500); }
+        if(code) { 
+            let cleanCode = code.replace(/<br\s*\/?>/gi, '\n');
+            navigator.clipboard.writeText(cleanCode); 
+            showToast('Код скопирован'); 
+            let orig = e.currentTarget.innerText; 
+            e.currentTarget.innerText='Готово'; 
+            setTimeout(()=>{ e.currentTarget.innerText=orig; },1500); 
+        }
     }
+    
     function escapeHtml(str) { return str.replace(/[&<>]/g, m => m==='&'?'&amp;':m==='<'?'&lt;':'&gt;'); }
     function sleep(ms) { return new Promise(r=>setTimeout(r,ms)); }
     
     async function showProcessSteps() {
         let container = document.createElement('div'); container.className='message assistant'; container.id='processContainer';
         let bubble = document.createElement('div'); bubble.className='bubble'; bubble.style.padding='0'; bubble.style.background='transparent';
-        bubble.innerHTML = `<div class="process-container"><div class="process-step" id="step1"><div class="step-icon"><span class="step-spinner"></span></div><div class="step-text">Анализирую запрос</div></div><div class="process-step" id="step2"><div class="step-icon"><i class="far fa-circle"></i></div><div class="step-text">Генерирую ответ</div></div><div class="process-step" id="step3"><div class="step-icon"><i class="far fa-circle"></i></div><div class="step-text">Формирую результат</div></div></div>`;
+        bubble.innerHTML = `<div class="process-container">
+            <div class="process-step" id="step1"><div class="step-icon"><span class="step-spinner"></span></div><div class="step-text">Анализирую запрос</div></div>
+            <div class="process-step" id="step2"><div class="step-icon"><i class="far fa-circle"></i></div><div class="step-text">Обращаюсь к нейросети</div></div>
+            <div class="process-step" id="step3"><div class="step-icon"><i class="far fa-circle"></i></div><div class="step-text">Генерирую ответ</div></div>
+            <div class="process-step" id="step4"><div class="step-icon"><i class="far fa-circle"></i></div><div class="step-text">Формирую результат</div></div>
+        </div>`;
         let avatar = document.createElement('div'); avatar.className='avatar'; avatar.innerHTML='<i class="fas fa-brain"></i>';
         container.appendChild(avatar); container.appendChild(bubble);
         messagesContainer.appendChild(container); messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        let s1=document.getElementById('step1'), s2=document.getElementById('step2'), s3=document.getElementById('step3');
-        if(s1){ s1.classList.add('active'); await sleep(500); s1.classList.remove('active'); s1.classList.add('completed'); s1.querySelector('.step-icon').innerHTML='<i class="fas fa-check"></i>'; }
-        if(s2){ s2.classList.add('active'); s2.querySelector('.step-icon').innerHTML='<span class="step-spinner"></span>'; await sleep(700); s2.classList.remove('active'); s2.classList.add('completed'); s2.querySelector('.step-icon').innerHTML='<i class="fas fa-check"></i>'; }
-        if(s3){ s3.classList.add('active'); s3.querySelector('.step-icon').innerHTML='<span class="step-spinner"></span>'; await sleep(500); s3.classList.remove('active'); s3.classList.add('completed'); s3.querySelector('.step-icon').innerHTML='<i class="fas fa-check"></i>'; }
-        await sleep(200);
+        
+        let steps = ['step1','step2','step3','step4'];
+        for(let i=0; i<steps.length; i++) {
+            let step = document.getElementById(steps[i]);
+            if(step) {
+                step.classList.add('active');
+                let iconSpan = step.querySelector('.step-icon');
+                if(iconSpan) iconSpan.innerHTML = '<span class="step-spinner"></span>';
+                await sleep(i===0?600: i===1?700: i===2?800: 600);
+                step.classList.remove('active');
+                step.classList.add('completed');
+                if(iconSpan) iconSpan.innerHTML = '<i class="fas fa-check-circle"></i>';
+            }
+        }
+        await sleep(150);
         return container;
     }
     
-    async function animateTyping(element, text, speed=12) {
+    async function animateTyping(element, text, speed=10) {
         element.innerHTML = ''; let i=0;
         let cursor = document.createElement('span'); cursor.className='typing-cursor'; element.appendChild(cursor);
         function type() { if(i<text.length) { element.insertBefore(document.createTextNode(text[i]), cursor); i++; setTimeout(type, speed); } else { cursor.remove(); } }
@@ -728,13 +412,14 @@
         let msgDiv = document.createElement('div'); msgDiv.className='message assistant';
         let avatar = document.createElement('div'); avatar.className='avatar'; avatar.innerHTML='<i class="fas fa-brain"></i>';
         let bubble = document.createElement('div'); bubble.className='bubble';
-        let modeHtml = `<div class="mode-badge">${mode} режим</div>`;
+        let modeHtml = mode ? `<div class="mode-badge">${mode} режим</div>` : '';
         bubble.innerHTML = modeHtml;
         msgDiv.appendChild(avatar); msgDiv.appendChild(bubble);
         messagesContainer.appendChild(msgDiv); messagesContainer.scrollTop = messagesContainer.scrollHeight;
         let textSpan = document.createElement('span'); bubble.appendChild(textSpan);
-        await animateTyping(textSpan, fullText, 12);
-        bubble.innerHTML = modeHtml + formatContentWithCodeBlocks(fullText);
+        await animateTyping(textSpan, fullText, 10);
+        let formattedContent = formatContentWithCodeBlocks(fullText);
+        bubble.innerHTML = modeHtml + formattedContent;
         attachCopyEvents();
         chat.messages.push({ role: "assistant", content: fullText, mode: mode });
         saveToLocal();
@@ -747,69 +432,93 @@
     
     function getModeName() { return currentTier==="free"?"Free":currentTier==="pro"?"Pro":"Team"; }
     
-    function generateResponse(prompt) {
-        let lower = prompt.toLowerCase().trim();
-        let mode = getModeName();
-        let quality = mode==="Free"?"Free режим: базовый рабочий код.\n\n":(mode==="Pro"?"Pro режим: качественный код с документацией.\n\n":"Team режим: архитектурный подход, тесты, CI/CD.\n\n");
-        
-        if(lower==="привет"||lower==="здравствуй"||lower==="ку"||lower==="hello"||lower==="hi") 
-            return `Привет! Я Mindcode AI. Чем могу помочь? Напишите, что нужно сделать — код, игру, API, бота.`;
-        if(lower.includes("что умеешь")||lower.includes("твои возможности"))
-            return `Я умею:\n• Писать код на Python, JS, Go, Rust, C++, Java\n• Создавать игры (Змейка, 3D, платформеры)\n• Делать веб-приложения (React, Vue, Node.js, FastAPI)\n• Писать телеграм-ботов и API\n• Помогать с архитектурой, тестами, документацией\n• DevOps: Docker, CI/CD, Kubernetes\n\nПросто опишите задачу — я сгенерирую готовый код.`;
-        if(lower.includes("кто твой создатель")||lower.includes("кто создатель"))
-            return `Меня создал Михаил Комаров - разработчик и предприниматель. Mindcode Intelligence — его видение будущего, где код пишется по промту.`;
-        if(lower.includes("что входит в мою подписку")||lower.includes("подписка")||lower==="тариф") {
-            if(mode==="Free") return `Ваш тариф: Free\n• 5 запросов/мес\n• 1 агент (CodeMind Lite)\n• До 1500 строк\n\nПерейдите на Pro (200 запросов, 3 агента) или Team (безлимит).`;
-            if(mode==="Pro") return `Ваш тариф: Pro\n• 200 запросов/мес\n• 3 агента (CodeMind, DocuForge, Testron)\n• Высокое качество кода\n\nTeam даёт безлимит и всех агентов.`;
-            return `Ваш тариф: Team\n• 1000+ запросов\n• Все агенты: CodeMind, DocuForge, Testron, Optimus, SecureAI, Architect\n• Максимальное качество, CI/CD, тесты`;
+    async function callAI(prompt, chatHistory) {
+        // Если API-ключ не настроен — показываем ошибку
+        if (!SAMBANOVA_API_KEY || SAMBANOVA_API_KEY === "YOUR_API_KEY_HERE") {
+            return "⚠️ **API-ключ не настроен!**\n\nПожалуйста, вставьте свой API-ключ Sambanova в переменную `SAMBANOVA_API_KEY` в коде.\n\n1. Зайдите на [cloud.sambanova.ai](https://cloud.sambanova.ai)\n2. Зарегистрируйтесь / войдите\n3. Создайте API-ключ\n4. Вставьте его в код (строка с `const SAMBANOVA_API_KEY`)\n\nПосле этого я буду отвечать через нейросеть!";
         }
-        if(lower.includes("как дела")||lower.includes("как ты")) return "У меня всё отлично! Готов помогать с кодом. А у вас как?";
         
-        if(lower.includes("змейка")||(lower.includes("snake")&&lower.includes("игра")))
-            return `${quality}**Игра Змейка на JavaScript**\n\`\`\`javascript\nconst canvas = document.getElementById('gameCanvas');\nconst ctx = canvas.getContext('2d');\nlet snake = [{x:10,y:10}];\nlet direction = 'RIGHT';\nlet food = {x:15,y:15};\nlet score = 0;\n\ndocument.addEventListener('keydown', (e) => {\n    if(e.key==='ArrowUp'&&direction!=='DOWN') direction='UP';\n    if(e.key==='ArrowDown'&&direction!=='UP') direction='DOWN';\n    if(e.key==='ArrowLeft'&&direction!=='RIGHT') direction='LEFT';\n    if(e.key==='ArrowRight'&&direction!=='LEFT') direction='RIGHT';\n});\n\nfunction gameLoop() {\n    requestAnimationFrame(gameLoop);\n}\ngameLoop();\n\`\`\`\nПолный код с отрисовкой, счётом и рестартом доступен.`;
-        if(lower.includes("todo")||(lower.includes("список")&&lower.includes("дел")))
-            return `${quality}**ToDo приложение на React**\n\`\`\`jsx\nimport React, { useState, useEffect } from 'react';\n\nconst App = () => {\n  const [todos, setTodos] = useState([]);\n  const [input, setInput] = useState('');\n  \n  useEffect(() => {\n    const saved = localStorage.getItem('todos');\n    if(saved) setTodos(JSON.parse(saved));\n  }, []);\n  \n  const addTodo = () => {\n    if(!input.trim()) return;\n    const newTodos = [...todos, { text: input, done: false, id: Date.now() }];\n    setTodos(newTodos);\n    localStorage.setItem('todos', JSON.stringify(newTodos));\n    setInput('');\n  };\n  \n  return (<div><input value={input} onChange={(e)=>setInput(e.target.value)}/><button onClick={addTodo}>Add</button>{todos.map(t=> <div key={t.id}>{t.text}</div>)}</div>);\n};\nexport default App;\n\`\`\``;
-        if(lower.includes("телеграм")||lower.includes("telegram")||(lower.includes("бот")&&lower.includes("python")))
-            return `${quality}**Telegram бот на Python (aiogram)**\n\`\`\`python\nfrom aiogram import Bot, Dispatcher, types\nfrom aiogram.filters import Command\n\nAPI_TOKEN = 'YOUR_TOKEN'\nbot = Bot(token=API_TOKEN)\ndp = Dispatcher()\n\n@dp.message(Command('start'))\nasync def start(message: types.Message):\n    await message.reply('Привет! Я Mindcode бот')\n\nasync def main():\n    await dp.start_polling(bot)\n\nif __name__ == '__main__':\n    import asyncio\n    asyncio.run(main())\n\`\`\``;
-        if(lower.includes("3d")||lower.includes("three")||(lower.includes("куб")&&lower.includes("js")))
-            return `${quality}**3D куб на Three.js**\n\`\`\`javascript\nimport * as THREE from 'three';\nconst scene = new THREE.Scene();\nconst camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);\nconst renderer = new THREE.WebGLRenderer();\nrenderer.setSize(window.innerWidth, window.innerHeight);\ndocument.body.appendChild(renderer.domElement);\nconst cube = new THREE.Mesh(new THREE.BoxGeometry(), new THREE.MeshStandardMaterial({ color: 0x3366cc }));\nscene.add(cube);\nconst light = new THREE.DirectionalLight(0xffffff, 1);\nlight.position.set(1,2,3);\nscene.add(light);\nfunction animate() {\n    requestAnimationFrame(animate);\n    cube.rotation.x += 0.01;\n    cube.rotation.y += 0.01;\n    renderer.render(scene, camera);\n}\nanimate();\n\`\`\``;
-        if(lower.includes("api")||lower.includes("fastapi"))
-            return `${quality}**FastAPI сервер**\n\`\`\`python\nfrom fastapi import FastAPI\nfrom pydantic import BaseModel\n\napp = FastAPI()\n\nclass Item(BaseModel):\n    name: str\n    price: float\n\n@app.get('/')\ndef root():\n    return {'message': 'Hello World'}\n\n@app.post('/items/')\ndef create_item(item: Item):\n    return item\n\`\`\``;
-        
-        return `${quality}По запросу "${prompt.substring(0,100)}"\n\nЯ могу:\n• Написать код на любом языке\n• Создать игру (Змейка, 3D)\n• Сделать веб-приложение или API\n• Разработать телеграм-бота\n\nУточните, что именно нужно — и я сгенерирую готовое решение с кодом.`;
+        try {
+            const messages = [
+                { role: "system", content: "Ты Mindcode AI — профессиональный ассистент для разработчиков. Ты пишешь код, объясняешь архитектуру, помогаешь с отладкой. Отвечай на русском языке. Код оборачивай в ``` с указанием языка. Используй **жирный текст** для выделения важного. Будь дружелюбным и полезным." },
+                ...chatHistory.slice(-15),
+                { role: "user", content: prompt }
+            ];
+            
+            const response = await fetch(API_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${SAMBANOVA_API_KEY}`
+                },
+                body: JSON.stringify({
+                    model: "Meta-Llama-3.1-8B-Instruct",
+                    messages: messages,
+                    temperature: 0.7,
+                    max_tokens: 4096,
+                    stream: false
+                })
+            });
+            
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error("API error:", errorText);
+                return `❌ **Ошибка API**: ${response.status}\n\nПроверьте правильность API-ключа. Ключ должен быть получен с [cloud.sambanova.ai](https://cloud.sambanova.ai)`;
+            }
+            
+            const data = await response.json();
+            return data.choices[0].message.content;
+        } catch (error) {
+            console.error("API error:", error);
+            return `❌ **Ошибка подключения**: ${error.message}\n\nПроверьте интернет и API-ключ.`;
+        }
     }
     
     async function handleSend() {
-        if(pendingResponse) return;
+        if(isProcessing) return;
         let prompt = promptInput.value.trim();
         if(!prompt) return;
         if(usedRequests>=maxRequests && currentTier!=="team") {
-            await addAssistantMessageWithTyping(`Лимит запросов (${maxRequests}) исчерпан. Обновите тариф.`, getModeName());
+            await addAssistantMessageWithTyping(`⚠️ **Лимит запросов (${maxRequests}) исчерпан.**\n\nОбновите тариф до Pro или Team для продолжения.`, getModeName());
             return;
         }
+        
+        isProcessing = true;
+        sendBtn.disabled = true;
+        
         await addUserMessageToChat(prompt);
         promptInput.value = "";
         promptInput.style.height = "auto";
-        pendingResponse = true;
-        sendBtn.disabled = true;
+        
         let processContainer = await showProcessSteps();
-        try {
-            let reply = generateResponse(prompt);
-            if(processContainer && processContainer.remove) processContainer.remove();
-            await addAssistantMessageWithTyping(reply, getModeName());
-            if(currentTier!=="team") usedRequests++;
-            else usedRequests++;
-            updateUsageUI();
-            saveToLocal();
-        } catch(e) {
-            if(processContainer && processContainer.remove) processContainer.remove();
-            let fallback = `По вашему запросу "${prompt.substring(0,80)}" сгенерировано решение.\n\nПример кода:\n\`\`\`python\nprint("Hello from Mindcode")\n\`\`\``;
-            await addAssistantMessageWithTyping(fallback, getModeName());
-        } finally {
-            pendingResponse = false;
-            sendBtn.disabled = (usedRequests>=maxRequests && currentTier!=="team");
-            promptInput.focus();
+        
+        // Собираем историю чата для контекста
+        let chat = chats.find(c=>c.id===activeChatId);
+        let chatHistory = [];
+        if(chat) {
+            // Берём последние 10 сообщений для контекста
+            let lastMessages = chat.messages.slice(-10);
+            for(let msg of lastMessages) {
+                if(msg.role === 'user') {
+                    chatHistory.push({ role: "user", content: msg.content });
+                } else if(msg.role === 'assistant') {
+                    chatHistory.push({ role: "assistant", content: msg.content });
+                }
+            }
         }
+        
+        let reply = await callAI(prompt, chatHistory);
+        if(processContainer) processContainer.remove();
+        await addAssistantMessageWithTyping(reply, getModeName());
+        
+        if(currentTier!=="team") usedRequests++;
+        else usedRequests++;
+        updateUsageUI();
+        saveToLocal();
+        
+        isProcessing = false;
+        sendBtn.disabled = (usedRequests>=maxRequests && currentTier!=="team");
+        promptInput.focus();
     }
     
     function createNewChat() {
@@ -826,13 +535,12 @@
         if(plan==="pro") { currentTier="pro"; maxRequests=200; usedRequests=Math.min(usedRequests,200); }
         if(plan==="team") { currentTier="team"; maxRequests=1000; }
         updateUsageUI(); saveToLocal(); plansModal.style.display="none";
-        addAssistantMessageWithTyping(`Тариф ${plan==='free'?'Free':plan==='pro'?'Pro':'Team'} активирован. Теперь ${maxRequests} запросов.`, getModeName());
+        addAssistantMessageWithTyping(`✅ **Тариф ${plan==='free'?'Free':plan==='pro'?'Pro':'Team'} активирован.**\n\nТеперь вам доступно ${maxRequests} запросов в месяц.`, getModeName());
     }
     
     newChatSidebarBtn.addEventListener('click', createNewChat);
     showPlansBtn.addEventListener('click', ()=>plansModal.style.display='flex');
     closeModalBtn.addEventListener('click', ()=>plansModal.style.display='none');
-    miniUpgradeBtn.addEventListener('click', ()=>setPlan("pro"));
     document.querySelectorAll('.selectPlanBtn').forEach(btn=>{ btn.addEventListener('click',(e)=>setPlan(e.target.getAttribute('data-plan'))); });
     sendBtn.addEventListener('click', handleSend);
     promptInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); } });
