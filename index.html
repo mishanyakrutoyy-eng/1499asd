@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Mindcode Intelligence · AI ассистент</title>
+    <title>Mindcode Intelligence · AI ассистент для разработчиков</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -51,14 +51,32 @@
             max-width: 420px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
+        .auth-logo {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .auth-logo .logo-main {
+            font-weight: 800;
+            font-size: 1.8rem;
+            letter-spacing: -0.02em;
+            color: #000;
+        }
+        .auth-logo .logo-sub {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #888;
+            margin-left: 4px;
+        }
         .auth-modal h2 {
             font-weight: 700;
             margin-bottom: 8px;
+            text-align: center;
         }
         .auth-modal p {
             color: #666;
             font-size: 0.85rem;
             margin-bottom: 24px;
+            text-align: center;
         }
         .auth-input {
             width: 100%;
@@ -112,6 +130,7 @@
             text-align: center;
             margin-top: 16px;
             font-size: 0.8rem;
+            color: #666;
         }
         .switch-auth span {
             color: #000;
@@ -157,10 +176,27 @@
         }
         
         .top-bar { padding: 16px 12px 8px 12px; border-bottom: 1px solid #E8E8E8; }
-        .plan-chip-top { background: #fff; border-radius: 24px; padding: 10px 12px; border: 1px solid #EAEAEA; margin-bottom: 8px; }
+        .plan-chip-top { 
+            background: #fff; 
+            border-radius: 24px; 
+            padding: 10px 12px; 
+            border: 1px solid #EAEAEA; 
+            margin-bottom: 8px;
+            transition: all 0.2s;
+        }
+        .plan-chip-top.limit-reached {
+            border-color: #e53935;
+            background: #fff5f5;
+        }
         .plan-name-top { font-weight: 700; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; }
         .usage-bar-top { background: #E8E8E8; border-radius: 20px; height: 4px; margin: 8px 0; overflow: hidden; }
         .usage-fill-top { background: #000; height: 4px; width: 0%; border-radius: 20px; }
+        .limit-warning {
+            font-size: 0.65rem;
+            color: #e53935;
+            margin-top: 6px;
+            text-align: center;
+        }
         .plans-button { width: 100%; background: #F0F0F0; border: 1px solid #E0E0E0; padding: 8px 12px; border-radius: 40px; font-weight: 600; font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; color: #111; transition: 0.2s; }
         .plans-button:hover { background: #E8E8E8; }
         
@@ -180,12 +216,12 @@
         .chat-action-btn:hover { color: #000; background: #E0E0E0; }
         .pin-btn.pinned { color: #000; }
         
-        /* Профиль внизу сайдбара */
         .sidebar-footer {
             flex-shrink: 0;
             border-top: 1px solid #E8E8E8;
             padding: 12px;
             background: #FAFAFA;
+            position: relative;
         }
         .profile-card {
             display: flex;
@@ -197,9 +233,7 @@
             transition: 0.2s;
             position: relative;
         }
-        .profile-card:hover {
-            background: #F0F0F0;
-        }
+        .profile-card:hover { background: #F0F0F0; }
         .profile-avatar {
             width: 36px;
             height: 36px;
@@ -212,45 +246,24 @@
             font-weight: 700;
             font-size: 0.9rem;
         }
-        .profile-info {
-            flex: 1;
-            overflow: hidden;
-        }
-        .profile-name {
-            font-weight: 600;
-            font-size: 0.85rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .profile-email {
-            font-size: 0.7rem;
-            color: #888;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .profile-arrow {
-            color: #999;
-            font-size: 0.8rem;
-            transition: transform 0.2s;
-        }
-        .profile-arrow.open {
-            transform: rotate(180deg);
-        }
+        .profile-info { flex: 1; overflow: hidden; }
+        .profile-name { font-weight: 600; font-size: 0.85rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .profile-email { font-size: 0.7rem; color: #888; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .profile-arrow { color: #999; font-size: 0.8rem; transition: transform 0.2s; }
+        .profile-arrow.open { transform: rotate(180deg); }
         
-        /* Popup logout */
         .logout-popup {
             position: absolute;
-            bottom: 70px;
-            left: 20px;
+            bottom: 100%;
+            left: 12px;
+            right: 12px;
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-radius: 16px;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
             padding: 8px 0;
-            min-width: 180px;
             z-index: 1500;
             border: 1px solid #E8E8E8;
+            margin-bottom: 8px;
         }
         .logout-popup button {
             width: 100%;
@@ -265,14 +278,12 @@
             align-items: center;
             gap: 10px;
             color: #e53935;
+            border-radius: 8px;
         }
-        .logout-popup button:hover {
-            background: #F5F5F5;
-        }
+        .logout-popup button:hover { background: #F5F5F5; }
         
         .chat-area { flex: 1; display: flex; flex-direction: column; background: #FFFFFF; overflow: hidden; position: relative; }
         .messages-container { flex: 1; overflow-y: auto; padding: 20px 28px; display: flex; flex-direction: column; gap: 16px; }
-        
         .empty-chat-overlay {
             position: absolute;
             top: 50%;
@@ -292,7 +303,6 @@
         .message.user .avatar { background: #000; color: white; }
         .bubble { background: #F6F6F6; padding: 10px 16px; border-radius: 20px; font-size: 0.9rem; line-height: 1.45; color: #111; word-break: break-word; font-weight: 400; }
         .message.user .bubble { background: #000; color: white; }
-        
         .mode-badge { font-size: 0.65rem; color: #888; margin-bottom: 4px; font-weight: 500; }
         
         .code-block-wrapper { position: relative; margin: 8px 0; background: #F0F2F5; border-radius: 12px; overflow: hidden; border: 1px solid #E2E6EA; }
@@ -341,12 +351,13 @@
         <div class="chats-sidebar">
             <div class="sidebar-content">
                 <div class="top-bar">
-                    <div class="plan-chip-top">
+                    <div class="plan-chip-top" id="planChipTop">
                         <div class="plan-name-top">
                             <span id="sidebarPlanName">Free</span>
                             <span style="font-size:0.7rem; color:#666;" id="sidebarUsageText">0/5</span>
                         </div>
                         <div class="usage-bar-top"><div class="usage-fill-top" id="usageFillTop"></div></div>
+                        <div id="limitWarning" class="limit-warning" style="display: none;">⚠️ Лимит запросов исчерпан</div>
                     </div>
                     <button class="plans-button" id="showPlansBtn"><i class="fas fa-tags"></i> Тарифы</button>
                 </div>
@@ -358,7 +369,7 @@
                     <div class="chats-list" id="chatsList"></div>
                 </div>
             </div>
-            <div class="sidebar-footer">
+            <div class="sidebar-footer" id="sidebarFooter">
                 <div class="profile-card" id="profileCard">
                     <div class="profile-avatar" id="profileAvatar">U</div>
                     <div class="profile-info">
@@ -388,20 +399,20 @@
             <button id="closeModalBtn" style="background:none; border:none; font-size:1.4rem; cursor:pointer;">×</button>
         </div>
         <div style="display:flex; flex-direction:column; gap:16px;">
-            <div style="border:1px solid #eee; border-radius:24px; padding:16px;">
+            <div style="border:1px solid #eee; border-radius:24px; padding:16px;" id="planFreeCard">
                 <div style="font-weight:800;">Free</div>
-                <div style="font-size:0.8rem;">5 запросов/мес, 1 агент</div>
-                <button class="selectPlanBtn" data-plan="free" style="margin-top:12px; background:#F0F0F0; border:none; padding:6px 0; width:100%; border-radius:40px; cursor:pointer;">Текущий</button>
+                <div style="font-size:0.8rem;">5 запросов/мес, 1 агент (CodeMine Lite)</div>
+                <button class="selectPlanBtn" data-plan="free" style="margin-top:12px; background:#F0F0F0; border:none; padding:6px 0; width:100%; border-radius:40px; cursor:pointer;" id="planFreeBtn">Текущий</button>
             </div>
-            <div style="border:1px solid #000; border-radius:24px; padding:16px;">
+            <div style="border:1px solid #000; border-radius:24px; padding:16px;" id="planProCard">
                 <div style="font-weight:800;">Pro</div>
-                <div style="font-size:0.8rem;">200 запросов, 3 агента</div>
-                <button class="selectPlanBtn" data-plan="pro" style="margin-top:12px; background:#000; color:white; border:none; padding:6px 0; width:100%; border-radius:40px; cursor:pointer;">29$ / месяц</button>
+                <div style="font-size:0.8rem;">200 запросов, 3 агента (CodeMine + DocuForge + Testron)</div>
+                <button class="selectPlanBtn" data-plan="pro" style="margin-top:12px; background:#000; color:white; border:none; padding:6px 0; width:100%; border-radius:40px; cursor:pointer;" id="planProBtn">29$ / месяц</button>
             </div>
-            <div style="border:1px solid #eee; border-radius:24px; padding:16px;">
+            <div style="border:1px solid #eee; border-radius:24px; padding:16px;" id="planTeamCard">
                 <div style="font-weight:800;">Team</div>
-                <div style="font-size:0.8rem;">1000 запросов, все агенты</div>
-                <button class="selectPlanBtn" data-plan="team" style="margin-top:12px; background:#F0F0F0; border:none; padding:6px 0; width:100%; border-radius:40px; cursor:pointer;">79$ / чел</button>
+                <div style="font-size:0.8rem;">1000 запросов, все агенты (CodeMine, MineThink, DocuForge, Testron, Optimus, SecureAI, Architect, DevOps)</div>
+                <button class="selectPlanBtn" data-plan="team" style="margin-top:12px; background:#F0F0F0; border:none; padding:6px 0; width:100%; border-radius:40px; cursor:pointer;" id="planTeamBtn">79$ / чел</button>
             </div>
         </div>
     </div>
@@ -411,7 +422,7 @@
     const SAMBANOVA_API_KEY = "6329c000-1e83-4704-8432-b11205631d84";
     const API_URL = "https://api.sambanova.ai/v1/chat/completions";
     
-    const MINDCORE_SYSTEM_PROMPM = `Ты — Mindcode AI, профессиональный ассистент для разработчиков.
+    const MINDCORE_SYSTEM_PROMPT = `Ты — Mindcode AI, профессиональный ассистент для разработчиков.
 
 Твои возможности:
 - Писать код на любых языках (Python, JS, Go, Rust, C++, Java, C#, PHP, Swift, Kotlin)
@@ -419,21 +430,17 @@
 - Разрабатывать веб-приложения (React, Vue, Angular, Node.js, Django, FastAPI, Laravel)
 - Делать телеграм-ботов, API, микросервисы, парсеры
 - Помогать с архитектурой, рефакторингом, оптимизацией
-- Писать тесты, документацию, Dockerfile, CI/CD (GitHub Actions, GitLab CI)
+- Писать тесты, документацию, Dockerfile, CI/CD
 - Объяснять сложные концепции простым языком
-- Отвечать на вопросы по любым технологиям
 
 Правила общения:
-- Отвечай на том же языке, на котором задан вопрос (русский/английский)
+- Отвечай на том же языке, на котором задан вопрос
 - Всегда представляйся как Mindcode AI
 - Код всегда оборачивай в тройные бэктики с указанием языка
 - Для выделения важного используй **жирный текст**
-- Будь дружелюбным, но без лишних эмодзи
+- Будь дружелюбным
 - Если вопрос не связан с разработкой — вежливо направь в тему программирования
-- Давай конкретные, работающие примеры кода
-- Если задача сложная — разбей на этапы и объясни логику
-
-Твоя цель — помочь разработчику написать качественный код и решить любую задачу.`;
+- Давай конкретные, работающие примеры кода`;
     
     let currentUser = null;
     let currentTier = "free";
@@ -447,41 +454,16 @@
     function escapeHtml(str) { return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'); }
     function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
     
-    // Auth functions
-    function saveUser(user) {
-        localStorage.setItem('mindcode_user', JSON.stringify(user));
-        currentUser = user;
-    }
-    function loadUser() {
-        let saved = localStorage.getItem('mindcode_user');
-        if(saved) {
-            currentUser = JSON.parse(saved);
-            return true;
-        }
-        return false;
-    }
+    function validateEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
+    function validatePassword(password) { return /^[A-Za-z0-9]+$/.test(password) && password.length >= 4 && password.length <= 32; }
+    
+    function saveUser(user) { localStorage.setItem('mindcode_user', JSON.stringify(user)); currentUser = user; }
+    function loadUser() { let saved = localStorage.getItem('mindcode_user'); if(saved) { currentUser = JSON.parse(saved); return true; } return false; }
     
     function showAuthModal(onSuccess) {
         let modal = document.createElement('div');
         modal.className = 'auth-overlay';
-        modal.innerHTML = `
-            <div class="auth-modal">
-                <h2>Добро пожаловать</h2>
-                <p>Войдите или зарегистрируйтесь, чтобы продолжить</p>
-                <div id="authForm">
-                    <input type="email" id="authEmail" class="auth-input" placeholder="Email">
-                    <input type="password" id="authPassword" class="auth-input" placeholder="Пароль (минимум 4 символа)">
-                    <div id="authError" class="error-msg"></div>
-                    <button id="authSubmitBtn" class="auth-btn">Войти</button>
-                    <div class="auth-divider">или</div>
-                    <div class="social-buttons">
-                        <button id="googleAuthBtn" class="social-btn"><i class="fab fa-google"></i> Google</button>
-                        <button id="githubAuthBtn" class="social-btn"><i class="fab fa-github"></i> GitHub</button>
-                    </div>
-                    <div class="switch-auth">Нет аккаунта? <span id="switchToRegister">Зарегистрироваться</span></div>
-                </div>
-            </div>
-        `;
+        modal.innerHTML = `<div class="auth-modal"><div class="auth-logo"><span class="logo-main">Mindcode</span><span class="logo-sub">intelligence</span></div><h2 id="authTitle">Вход</h2><p id="authSubtitle">Войдите в свой аккаунт</p><div id="authForm"><input type="email" id="authEmail" class="auth-input" placeholder="Email (example@mail.com)"><input type="password" id="authPassword" class="auth-input" placeholder="Пароль (только буквы и цифры, 4-32)"><div id="authError" class="error-msg"></div><button id="authSubmitBtn" class="auth-btn">Войти</button><div class="auth-divider">или</div><div class="social-buttons"><button id="googleAuthBtn" class="social-btn"><i class="fab fa-google"></i> Google</button><button id="githubAuthBtn" class="social-btn"><i class="fab fa-github"></i> GitHub</button></div><div class="switch-auth" id="switchText">Нет аккаунта? <span id="switchToRegister">Зарегистрироваться</span></div></div></div>`;
         document.body.appendChild(modal);
         
         let isLogin = true;
@@ -489,30 +471,32 @@
         const authPassword = modal.querySelector('#authPassword');
         const authError = modal.querySelector('#authError');
         const authSubmitBtn = modal.querySelector('#authSubmitBtn');
-        const switchBtn = modal.querySelector('#switchToRegister');
+        const authTitle = modal.querySelector('#authTitle');
+        const authSubtitle = modal.querySelector('#authSubtitle');
+        const switchTextDiv = modal.querySelector('#switchText');
         
-        function updateButton() {
-            authSubmitBtn.textContent = isLogin ? 'Войти' : 'Зарегистрироваться';
+        function updateUI() {
+            if (isLogin) {
+                authTitle.textContent = 'Вход';
+                authSubtitle.textContent = 'Войдите в свой аккаунт';
+                authSubmitBtn.textContent = 'Войти';
+                switchTextDiv.innerHTML = 'Нет аккаунта? <span id="switchToRegister">Зарегистрироваться</span>';
+            } else {
+                authTitle.textContent = 'Регистрация';
+                authSubtitle.textContent = 'Создайте новый аккаунт';
+                authSubmitBtn.textContent = 'Зарегистрироваться';
+                switchTextDiv.innerHTML = 'Есть аккаунт? <span id="switchToRegister">Войти</span>';
+            }
+            modal.querySelector('#switchToRegister').onclick = () => { isLogin = !isLogin; updateUI(); };
         }
-        
-        switchBtn.onclick = () => {
-            isLogin = !isLogin;
-            updateButton();
-        };
         
         function handleAuth() {
             let email = authEmail.value.trim();
             let password = authPassword.value;
             authError.textContent = '';
-            
-            if(!email || !password) {
-                authError.textContent = 'Заполните все поля';
-                return;
-            }
-            if(!isLogin && password.length < 4) {
-                authError.textContent = 'Пароль должен быть минимум 4 символа';
-                return;
-            }
+            if(!email || !password) { authError.textContent = 'Заполните все поля'; return; }
+            if(!validateEmail(email)) { authError.textContent = 'Введите корректный email (например, user@mail.com)'; return; }
+            if(!validatePassword(password)) { authError.textContent = 'Пароль должен содержать только буквы и цифры (4-32 символа)'; return; }
             
             if(isLogin) {
                 let users = JSON.parse(localStorage.getItem('mindcode_users') || '{}');
@@ -521,16 +505,11 @@
                     modal.remove();
                     if(onSuccess) onSuccess();
                     else initApp();
-                } else {
-                    authError.textContent = 'Неверный email или пароль';
-                }
+                } else { authError.textContent = 'Неверный email или пароль'; }
             } else {
                 let users = JSON.parse(localStorage.getItem('mindcode_users') || '{}');
-                if(users[email]) {
-                    authError.textContent = 'Пользователь уже существует';
-                    return;
-                }
-                users[email] = { email: email, password: password, name: email.split('@')[0] };
+                if(users[email]) { authError.textContent = 'Пользователь уже существует'; return; }
+                users[email] = { email: email, password: password, name: email.split('@')[0], tier: "free", used: 0 };
                 localStorage.setItem('mindcode_users', JSON.stringify(users));
                 saveUser({ email: email, name: email.split('@')[0] });
                 modal.remove();
@@ -539,36 +518,27 @@
             }
         }
         
+        updateUI();
         authSubmitBtn.onclick = handleAuth;
         authPassword.addEventListener('keypress', (e) => { if(e.key === 'Enter') handleAuth(); });
-        
-        modal.querySelector('#googleAuthBtn').onclick = () => {
-            authError.textContent = 'Для полноценной OAuth-авторизации нужен бэкенд. Используйте email-регистрацию.';
-        };
-        modal.querySelector('#githubAuthBtn').onclick = () => {
-            authError.textContent = 'Для полноценной OAuth-авторизации нужен бэкенд. Используйте email-регистрацию.';
-        };
+        modal.querySelector('#googleAuthBtn').onclick = () => { authError.textContent = 'Для OAuth-авторизации нужен бэкенд. Используйте email-регистрацию.'; };
+        modal.querySelector('#githubAuthBtn').onclick = () => { authError.textContent = 'Для OAuth-авторизации нужен бэкенд. Используйте email-регистрацию.'; };
     }
     
-    // Logout popup
     let logoutPopup = null;
     function toggleLogoutPopup() {
+        const footer = document.getElementById('sidebarFooter');
         if(logoutPopup) {
-            logoutPopup.remove();
-            logoutPopup = null;
-            document.getElementById('profileArrow').classList.remove('open');
+            logoutPopup.remove(); logoutPopup = null;
+            const arrow = document.getElementById('profileArrow'); if(arrow) arrow.classList.remove('open');
         } else {
             logoutPopup = document.createElement('div');
             logoutPopup.className = 'logout-popup';
             logoutPopup.innerHTML = `<button id="confirmLogoutBtn"><i class="fas fa-sign-out-alt"></i> Выйти из аккаунта</button>`;
-            document.body.appendChild(logoutPopup);
-            document.getElementById('profileArrow').classList.add('open');
-            
+            footer.appendChild(logoutPopup);
+            const arrow = document.getElementById('profileArrow'); if(arrow) arrow.classList.add('open');
             document.getElementById('confirmLogoutBtn').onclick = () => {
-                logoutPopup.remove();
-                logoutPopup = null;
-                document.getElementById('profileArrow').classList.remove('open');
-                // Очищаем данные пользователя
+                logoutPopup.remove(); logoutPopup = null; if(arrow) arrow.classList.remove('open');
                 localStorage.removeItem('mindcode_user');
                 if(currentUser) {
                     localStorage.removeItem(`mindcode_${currentUser.email}_chats`);
@@ -576,20 +546,13 @@
                     localStorage.removeItem(`mindcode_${currentUser.email}_tier`);
                     localStorage.removeItem(`mindcode_${currentUser.email}_used`);
                 }
-                // Показываем окно входа
                 document.getElementById('appContainer').style.display = 'none';
-                showAuthModal(() => {
-                    initApp();
-                });
+                showAuthModal(() => { initApp(); });
             };
-            
-            // Закрыть при клике вне
             setTimeout(() => {
                 document.addEventListener('click', function closePopup(e) {
-                    if(logoutPopup && !logoutPopup.contains(e.target) && !document.getElementById('profileCard').contains(e.target)) {
-                        logoutPopup.remove();
-                        logoutPopup = null;
-                        document.getElementById('profileArrow').classList.remove('open');
+                    if(logoutPopup && !logoutPopup.contains(e.target) && !document.getElementById('profileCard')?.contains(e.target)) {
+                        logoutPopup.remove(); logoutPopup = null; if(arrow) arrow.classList.remove('open');
                         document.removeEventListener('click', closePopup);
                     }
                 });
@@ -597,26 +560,44 @@
         }
     }
     
-    // App functions
     function initApp() {
         document.getElementById('appContainer').style.display = 'flex';
         document.getElementById('profileAvatar').innerText = currentUser.name.charAt(0).toUpperCase();
         document.getElementById('profileName').innerText = currentUser.name;
         document.getElementById('profileEmail').innerText = currentUser.email;
         
-        // Убираем старый обработчик, чтобы не дублировать
         const profileCard = document.getElementById('profileCard');
         const newProfileCard = profileCard.cloneNode(true);
         profileCard.parentNode.replaceChild(newProfileCard, profileCard);
         newProfileCard.querySelector('#profileArrow').id = 'profileArrow';
         newProfileCard.id = 'profileCard';
-        newProfileCard.onclick = (e) => {
-            e.stopPropagation();
-            toggleLogoutPopup();
-        };
+        newProfileCard.onclick = (e) => { e.stopPropagation(); toggleLogoutPopup(); };
         
         loadUserData();
         attachEventListeners();
+        updatePlansModalUI();
+    }
+    
+    function updatePlansModalUI() {
+        const freeBtn = document.getElementById('planFreeBtn');
+        const proBtn = document.getElementById('planProBtn');
+        const teamBtn = document.getElementById('planTeamBtn');
+        const freeCard = document.getElementById('planFreeCard');
+        const proCard = document.getElementById('planProCard');
+        const teamCard = document.getElementById('planTeamCard');
+        if(currentTier === 'free') {
+            freeBtn.textContent = '✓ Текущий'; freeBtn.style.background = '#E8E8E8'; freeBtn.style.color = '#666'; freeBtn.disabled = true; freeCard.style.border = '2px solid #000';
+            proBtn.textContent = '29$ / месяц'; proBtn.style.background = '#000'; proBtn.style.color = 'white'; proBtn.disabled = false; proCard.style.border = '1px solid #eee';
+            teamBtn.textContent = '79$ / чел'; teamBtn.style.background = '#F0F0F0'; teamBtn.style.color = '#111'; teamBtn.disabled = false; teamCard.style.border = '1px solid #eee';
+        } else if(currentTier === 'pro') {
+            proBtn.textContent = '✓ Текущий'; proBtn.style.background = '#E8E8E8'; proBtn.style.color = '#666'; proBtn.disabled = true; proCard.style.border = '2px solid #000';
+            freeBtn.textContent = 'Текущий'; freeBtn.style.background = '#F0F0F0'; freeBtn.style.color = '#111'; freeBtn.disabled = true; freeCard.style.border = '1px solid #eee';
+            teamBtn.textContent = '79$ / чел'; teamBtn.style.background = '#F0F0F0'; teamBtn.style.color = '#111'; teamBtn.disabled = false; teamCard.style.border = '1px solid #eee';
+        } else {
+            teamBtn.textContent = '✓ Текущий'; teamBtn.style.background = '#E8E8E8'; teamBtn.style.color = '#666'; teamBtn.disabled = true; teamCard.style.border = '2px solid #000';
+            freeBtn.textContent = 'Текущий'; freeBtn.style.background = '#F0F0F0'; freeBtn.style.color = '#111'; freeBtn.disabled = true; freeCard.style.border = '1px solid #eee';
+            proBtn.textContent = '29$ / месяц'; proBtn.style.background = '#F0F0F0'; proBtn.style.color = '#111'; proBtn.disabled = true; proCard.style.border = '1px solid #eee';
+        }
     }
     
     function loadUserData() {
@@ -630,10 +611,8 @@
         if(currentTier === "free") maxRequests = 5;
         else if(currentTier === "pro") maxRequests = 200;
         else maxRequests = 1000;
-        if(!chats.length) {
-            chats = [{ id: Date.now(), title: "Новый чат", pinned: false, messages: [] }];
-            activeChatId = chats[0].id;
-        } else if(savedActive && chats.find(c => c.id == savedActive)) activeChatId = savedActive;
+        if(!chats.length) { chats = [{ id: Date.now(), title: "Новый чат", pinned: false, messages: [] }]; activeChatId = chats[0].id; }
+        else if(savedActive && chats.find(c => c.id == savedActive)) activeChatId = savedActive;
         else activeChatId = chats[0].id;
         renderChatsList();
         renderCurrentChat();
@@ -645,6 +624,8 @@
         localStorage.setItem(`mindcode_${currentUser.email}_activeChat`, activeChatId);
         localStorage.setItem(`mindcode_${currentUser.email}_tier`, currentTier);
         localStorage.setItem(`mindcode_${currentUser.email}_used`, usedRequests);
+        let users = JSON.parse(localStorage.getItem('mindcode_users') || '{}');
+        if(users[currentUser.email]) { users[currentUser.email].tier = currentTier; users[currentUser.email].used = usedRequests; localStorage.setItem('mindcode_users', JSON.stringify(users)); }
     }
     
     function updateUsageUI() {
@@ -653,6 +634,10 @@
         document.getElementById('sidebarUsageText').innerText = `${usedRequests}/${maxRequests}`;
         document.getElementById('sidebarPlanName').innerText = currentTier === "free" ? "Free" : currentTier === "pro" ? "Pro" : "Team";
         let limitReached = (usedRequests >= maxRequests && currentTier !== "team");
+        const planChip = document.getElementById('planChipTop');
+        const limitWarning = document.getElementById('limitWarning');
+        if(limitReached) { planChip.classList.add('limit-reached'); limitWarning.style.display = 'block'; }
+        else { planChip.classList.remove('limit-reached'); limitWarning.style.display = 'none'; }
         document.getElementById('sendBtn').disabled = limitReached || isProcessing;
         document.getElementById('promptInput').disabled = limitReached;
     }
@@ -664,14 +649,7 @@
         sorted.forEach(chat => {
             let div = document.createElement('div');
             div.className = `chat-item ${activeChatId === chat.id ? 'active' : ''} ${chat.pinned ? 'pinned' : ''}`;
-            div.innerHTML = `
-                <span class="chat-name">${escapeHtml(chat.title)}</span>
-                <div class="chat-actions">
-                    <button class="chat-action-btn pin-btn"><i class="fas fa-thumbtack"></i></button>
-                    <button class="chat-action-btn rename-btn"><i class="fas fa-pen"></i></button>
-                    <button class="chat-action-btn delete-btn"><i class="fas fa-trash"></i></button>
-                </div>
-            `;
+            div.innerHTML = `<span class="chat-name">${escapeHtml(chat.title)}</span><div class="chat-actions"><button class="chat-action-btn pin-btn"><i class="fas fa-thumbtack"></i></button><button class="chat-action-btn rename-btn"><i class="fas fa-pen"></i></button><button class="chat-action-btn delete-btn"><i class="fas fa-trash"></i></button></div>`;
             div.querySelector('.pin-btn').onclick = (e) => { e.stopPropagation(); chat.pinned = !chat.pinned; renderChatsList(); saveUserData(); };
             div.querySelector('.rename-btn').onclick = (e) => { e.stopPropagation(); let newName = prompt('Новое название чата:', chat.title); if(newName && newName.trim()) { chat.title = newName.trim(); renderChatsList(); saveUserData(); } };
             div.querySelector('.delete-btn').onclick = (e) => { e.stopPropagation(); if(chats.length === 1) { showToast('Нельзя удалить последний чат'); return; } let idx = chats.findIndex(c => c.id === chat.id); if(idx !== -1) chats.splice(idx, 1); if(activeChatId === chat.id) activeChatId = chats[0].id; renderChatsList(); renderCurrentChat(); saveUserData(); };
@@ -719,7 +697,7 @@
         let codeRegex = /```(\w*)\n([\s\S]*?)```/g;
         let formatted = escaped.replace(codeRegex, (match, lang, code) => {
             let cleanCode = code.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
-            return `<div class="code-block-wrapper"><div class="code-header"><button class="copy-code-btn" data-code="${escapeHtml(cleanCode).replace(/"/g, '&quot;')}">Копировать</button></div><pre class="code-block"><code>${escapeHtml(cleanCode)}</code></pre></div>`;
+            return `<div class="code-block-wrapper"><div class="code-header"><button class="copy-code-btn" data-code="${escapeHtml(cleanCode).replace(/"/g, '&quot;')}">Копировать код</button></div><pre class="code-block"><code>${escapeHtml(cleanCode)}</code></pre></div>`;
         });
         return formatted.replace(/\n/g, '<br>');
     }
@@ -734,47 +712,63 @@
     }
     
     function attachCopyEvents() {
-        document.querySelectorAll('.copy-code-btn').forEach(btn => {
-            btn.removeEventListener('click', copyHandler);
-            btn.addEventListener('click', copyHandler);
-        });
+        document.querySelectorAll('.copy-code-btn').forEach(btn => { btn.removeEventListener('click', copyHandler); btn.addEventListener('click', copyHandler); });
     }
     
     function copyHandler(e) {
         e.stopPropagation();
         let code = e.currentTarget.getAttribute('data-code');
-        if(code) {
-            navigator.clipboard.writeText(code);
-            showToast('Код скопирован');
-            let orig = e.currentTarget.innerText;
-            e.currentTarget.innerText = 'Готово';
-            setTimeout(() => { e.currentTarget.innerText = orig; }, 1500);
-        }
+        if(code) { navigator.clipboard.writeText(code); showToast('Код скопирован'); let orig = e.currentTarget.innerText; e.currentTarget.innerText = 'Готово'; setTimeout(() => { e.currentTarget.innerText = orig; }, 1500); }
     }
     
-    async function showProcessSteps() {
+    function isCodeRequest(prompt) {
+        const codeKeywords = ['напиши', 'создай', 'сделай', 'код', 'игру', 'бот', 'телеграм', 'api', 'fastapi', 'react', 'vue', 'angular', 'todo', '3d', 'three', 'python', 'javascript', 'js', 'html', 'css', 'сервер', 'приложение', 'функцию', 'класс', 'алгоритм', 'базу данных', 'sql', 'парсер', 'скрипт'];
+        const lower = prompt.toLowerCase();
+        return codeKeywords.some(kw => lower.includes(kw));
+    }
+    
+    async function showProcessSteps(isCode) {
         let container = document.createElement('div'); container.className = 'message assistant'; container.id = 'processContainer';
         let bubble = document.createElement('div'); bubble.className = 'bubble'; bubble.style.padding = '0'; bubble.style.background = 'transparent';
-        bubble.innerHTML = `<div class="process-container"><div class="process-step" id="step1"><div class="step-icon"><span class="step-spinner"></span></div><div class="step-text">Анализирую запрос</div></div><div class="process-step" id="step2"><div class="step-icon"><i class="far fa-circle"></i></div><div class="step-text">Обращаюсь к Mindcode AI</div></div><div class="process-step" id="step3"><div class="step-icon"><i class="far fa-circle"></i></div><div class="step-text">Генерирую ответ</div></div><div class="process-step" id="step4"><div class="step-icon"><i class="far fa-circle"></i></div><div class="step-text">Формирую результат</div></div></div>`;
+        
+        if(isCode) {
+            const agentNames = currentTier === 'free' ? ['CodeMine'] : (currentTier === 'pro' ? ['CodeMine', 'DocuForge', 'Testron'] : ['CodeMine', 'MineThink', 'DocuForge', 'Testron', 'Optimus', 'SecureAI', 'Architect', 'DevOps']);
+            let agentsHtml = agentNames.map(agent => `<div class="process-step" style="opacity:0.7; font-size:0.7rem;"><span class="step-icon"><i class="fas fa-robot"></i></span><span class="step-text">${agent} готов</span></div>`).join('');
+            bubble.innerHTML = `<div class="process-container">
+                <div class="process-step" id="step1"><div class="step-icon"><span class="step-spinner"></span></div><div class="step-text">Анализирую запрос</div></div>
+                <div class="process-step" id="step2"><div class="step-icon"><i class="far fa-circle"></i></div><div class="step-text">Активация агентов</div></div>
+                <div class="process-step" id="step3"><div class="step-icon"><i class="far fa-circle"></i></div><div class="step-text">Генерация кода (CodeMine)</div></div>
+                <div class="process-step" id="step4"><div class="step-icon"><i class="far fa-circle"></i></div><div class="step-text">Проверка и оптимизация</div></div>
+                <div class="process-step" id="step5"><div class="step-icon"><i class="far fa-circle"></i></div><div class="step-text">Формирование ответа</div></div>
+                ${agentsHtml}
+            </div>`;
+        } else {
+            bubble.innerHTML = `<div class="process-container">
+                <div class="process-step" id="step1"><div class="step-icon"><span class="step-spinner"></span></div><div class="step-text">Анализирую запрос</div></div>
+                <div class="process-step" id="step2"><div class="step-icon"><i class="far fa-circle"></i></div><div class="step-text">Обработка сообщения (MineThink)</div></div>
+                <div class="process-step" id="step3"><div class="step-icon"><i class="far fa-circle"></i></div><div class="step-text">Формирую ответ</div></div>
+                <div class="process-step" style="opacity:0.7; font-size:0.7rem;"><span class="step-icon"><i class="fas fa-robot"></i></span><span class="step-text">MineThink активен</span></div>
+            </div>`;
+        }
         let avatar = document.createElement('div'); avatar.className = 'avatar'; avatar.innerHTML = '<i class="fas fa-brain"></i>';
         container.appendChild(avatar); container.appendChild(bubble);
         document.getElementById('messagesContainer').appendChild(container);
         document.getElementById('messagesContainer').scrollTop = document.getElementById('messagesContainer').scrollHeight;
         
-        let steps = ['step1', 'step2', 'step3', 'step4'];
+        let steps = isCode ? ['step1', 'step2', 'step3', 'step4', 'step5'] : ['step1', 'step2', 'step3'];
         for(let i = 0; i < steps.length; i++) {
             let step = document.getElementById(steps[i]);
             if(step) {
                 step.classList.add('active');
                 let iconSpan = step.querySelector('.step-icon');
                 if(iconSpan) iconSpan.innerHTML = '<span class="step-spinner"></span>';
-                await sleep(i === 0 ? 600 : i === 1 ? 800 : i === 2 ? 1000 : 700);
+                await sleep(i === 0 ? 1000 : i === 1 ? 1200 : i === 2 ? 1500 : i === 3 ? 1300 : 1000);
                 step.classList.remove('active');
                 step.classList.add('completed');
                 if(iconSpan) iconSpan.innerHTML = '<i class="fas fa-check-circle"></i>';
             }
         }
-        await sleep(150);
+        await sleep(300);
         return container;
     }
     
@@ -797,22 +791,17 @@
     
     async function addUserMessage(content) {
         let chat = chats.find(c => c.id === activeChatId);
-        if(chat) {
-            chat.messages.push({ role: "user", content });
-            displayUserMessageStatic(content);
-            saveUserData();
-            updateEmptyChatOverlay();
-        }
+        if(chat) { chat.messages.push({ role: "user", content }); displayUserMessageStatic(content); saveUserData(); updateEmptyChatOverlay(); }
     }
     
     function getModeName() { return currentTier === "free" ? "Free" : currentTier === "pro" ? "Pro" : "Team"; }
     
     async function callAI(prompt, chatHistory) {
         if (!SAMBANOVA_API_KEY || SAMBANOVA_API_KEY === "YOUR_API_KEY_HERE") {
-            return "⚠️ **API-ключ не настроен!**\n\nВставьте свой API-ключ Sambanova в переменную `SAMBANOVA_API_KEY` в коде.";
+            return "⚠️ **Ошибка. Мы уже работаем над ее исправлением (Mind Corporation)";
         }
         try {
-            const messages = [{ role: "system", content: MINDCORE_SYSTEM_PROMPM }, ...chatHistory.slice(-15), { role: "user", content: prompt }];
+            const messages = [{ role: "system", content: MINDCORE_SYSTEM_PROMPT }, ...chatHistory.slice(-15), { role: "user", content: prompt }];
             const response = await fetch(API_URL, {
                 method: "POST",
                 headers: { "Content-Type": "application/json", "Authorization": `Bearer ${SAMBANOVA_API_KEY}` },
@@ -831,14 +820,20 @@
         let prompt = document.getElementById('promptInput').value.trim();
         if(!prompt) return;
         if(usedRequests >= maxRequests && currentTier !== "team") {
-            await addAssistantMessage(`⚠️ **Лимит запросов (${maxRequests}) исчерпан.**`, getModeName());
+            await addAssistantMessage(`⚠️ **Лимит запросов (${maxRequests}) исчерпан.**\n\nОбновите тариф до Pro или Team для продолжения.`, getModeName());
             return;
         }
+        
         isProcessing = true;
         document.getElementById('sendBtn').disabled = true;
+        
         await addUserMessage(prompt);
         document.getElementById('promptInput').value = "";
-        let processContainer = await showProcessSteps();
+        document.getElementById('promptInput').style.height = "auto";
+        
+        let isCode = isCodeRequest(prompt);
+        let processContainer = await showProcessSteps(isCode);
+        
         let chat = chats.find(c => c.id === activeChatId);
         let chatHistory = [];
         if(chat) {
@@ -848,13 +843,16 @@
                 else if(msg.role === 'assistant') chatHistory.push({ role: "assistant", content: msg.content });
             }
         }
+        
         let reply = await callAI(prompt, chatHistory);
         if(processContainer) processContainer.remove();
         await addAssistantMessage(reply, getModeName());
+        
         if(currentTier !== "team") usedRequests++;
         else usedRequests++;
         updateUsageUI();
         saveUserData();
+        
         isProcessing = false;
         document.getElementById('sendBtn').disabled = (usedRequests >= maxRequests && currentTier !== "team");
         document.getElementById('promptInput').focus();
@@ -870,28 +868,28 @@
     }
     
     function setPlan(plan) {
+        if(plan === "free" && currentTier !== "free") return;
+        if(plan === "pro" && currentTier === "team") return;
         if(plan === "free") { currentTier = "free"; maxRequests = 5; usedRequests = Math.min(usedRequests, 5); }
-        if(plan === "pro") { currentTier = "pro"; maxRequests = 200; usedRequests = Math.min(usedRequests, 200); }
-        if(plan === "team") { currentTier = "team"; maxRequests = 1000; }
+        else if(plan === "pro") { currentTier = "pro"; maxRequests = 200; usedRequests = Math.min(usedRequests, 200); }
+        else if(plan === "team") { currentTier = "team"; maxRequests = 1000; }
         updateUsageUI(); saveUserData(); document.getElementById('plansModal').style.display = "none";
-        addAssistantMessage(`**Тариф ${plan === 'free' ? 'Free' : plan === 'pro' ? 'Pro' : 'Team'} активирован.** Теперь ${maxRequests} запросов.`, getModeName());
+        updatePlansModalUI();
+        addAssistantMessage(`**Тариф ${plan === 'free' ? 'Free' : plan === 'pro' ? 'Pro' : 'Team'} активирован.**\n\nТеперь вам доступно ${maxRequests} запросов в месяц.`, getModeName());
     }
     
     function attachEventListeners() {
         document.getElementById('newChatSidebarBtn').addEventListener('click', createNewChat);
-        document.getElementById('showPlansBtn').addEventListener('click', () => document.getElementById('plansModal').style.display = 'flex');
+        document.getElementById('showPlansBtn').addEventListener('click', () => { updatePlansModalUI(); document.getElementById('plansModal').style.display = 'flex'; });
         document.getElementById('closeModalBtn').addEventListener('click', () => document.getElementById('plansModal').style.display = 'none');
         document.querySelectorAll('.selectPlanBtn').forEach(btn => btn.addEventListener('click', (e) => setPlan(e.target.getAttribute('data-plan'))));
         document.getElementById('sendBtn').addEventListener('click', handleSend);
         document.getElementById('promptInput').addEventListener('keydown', (e) => { if(e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); } });
+        document.getElementById('promptInput').addEventListener('input', function() { this.style.height = 'auto'; this.style.height = Math.min(100, this.scrollHeight) + 'px'; });
         window.addEventListener('click', (e) => { if(e.target === document.getElementById('plansModal')) document.getElementById('plansModal').style.display = 'none'; });
     }
     
-    if(loadUser()) {
-        initApp();
-    } else {
-        showAuthModal();
-    }
+    if(loadUser()) { initApp(); } else { showAuthModal(); }
 </script>
 </body>
 </html>
