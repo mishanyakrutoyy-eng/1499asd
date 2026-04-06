@@ -852,7 +852,7 @@
         if(plan === "pro") { currentTier = "pro"; maxRequests = 200; usedRequests = Math.min(usedRequests, 200); }
         if(plan === "team") { currentTier = "team"; maxRequests = 1000; }
         updateUsageUI(); saveUserData(); document.getElementById('plansModal').style.display = "none";
-        addAssistantMessage(`✅ **Тариф ${plan === 'free' ? 'Free' : plan === 'pro' ? 'Pro' : 'Team'} активирован.** Теперь ${maxRequests} запросов.`, getModeName());
+        addAssistantMessage(`**Тариф ${plan === 'free' ? 'Free' : plan === 'pro' ? 'Pro' : 'Team'} активирован.** Теперь ${maxRequests} запросов.`, getModeName());
     }
     
     function attachEventListeners() {
