@@ -9,161 +9,49 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Montserrat', sans-serif; 
-            background: #FFFFFF; 
-            color: #111111; 
-            height: 100vh; 
-            display: flex; 
-            flex-direction: column; 
-            overflow: hidden;
-        }
-        .app-container { 
-            display: flex; 
-            flex-direction: column; 
-            height: 100%; 
-            max-width: 1600px; 
-            margin: 0 auto; 
-            width: 100%; 
-            background: #fff;
-            overflow: hidden;
-        }
-        
-        /* Auth modal */
-        .auth-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 3000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(4px);
-        }
-        .auth-modal {
-            background: white;
-            border-radius: 32px;
-            padding: 32px;
-            width: 90%;
-            max-width: 420px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
-        .auth-modal h2 {
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-        .auth-modal p {
-            color: #666;
-            font-size: 0.85rem;
-            margin-bottom: 24px;
-        }
-        .auth-input {
-            width: 100%;
-            padding: 14px 16px;
-            border: 1px solid #E0E0E0;
-            border-radius: 48px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.9rem;
-            margin-bottom: 16px;
-            outline: none;
-        }
-        .auth-input:focus {
-            border-color: #000;
-        }
-        .auth-btn {
-            width: 100%;
-            background: #000;
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 48px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-bottom: 16px;
-        }
-        .auth-divider {
-            text-align: center;
-            color: #999;
-            font-size: 0.75rem;
-            margin: 16px 0;
-            position: relative;
-        }
-        .social-buttons {
-            display: flex;
-            gap: 12px;
-        }
-        .social-btn {
-            flex: 1;
-            background: #F5F5F5;
-            border: 1px solid #E0E0E0;
-            padding: 10px;
-            border-radius: 48px;
-            cursor: pointer;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        .switch-auth {
-            text-align: center;
-            margin-top: 16px;
-            font-size: 0.8rem;
-        }
-        .switch-auth span {
-            color: #000;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .error-msg {
-            color: #e53935;
-            font-size: 0.75rem;
-            margin-top: -12px;
-            margin-bottom: 12px;
-        }
-        
-        .header { 
-            padding: 12px 24px; 
-            border-bottom: 1px solid #EDEDED; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            background: white; 
-            flex-shrink: 0; 
-        }
+        body { font-family: 'Montserrat', sans-serif; background: #FFFFFF; color: #111111; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+        .app-container { display: flex; flex-direction: column; height: 100%; max-width: 1600px; margin: 0 auto; width: 100%; background: #fff; overflow: hidden; }
+        .auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 3000; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+        .auth-modal { background: white; border-radius: 32px; padding: 32px; width: 90%; max-width: 420px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .auth-logo { text-align: center; margin-bottom: 24px; }
+        .auth-logo .logo-main { font-weight: 800; font-size: 1.8rem; color: #000; }
+        .auth-logo .logo-sub { font-size: 0.7rem; font-weight: 500; color: #888; margin-left: 4px; }
+        .auth-modal h2 { font-weight: 700; margin-bottom: 8px; text-align: center; }
+        .auth-modal p { color: #666; font-size: 0.85rem; margin-bottom: 24px; text-align: center; }
+        .auth-input { width: 100%; padding: 14px 16px; border: 1px solid #E0E0E0; border-radius: 48px; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; margin-bottom: 16px; outline: none; }
+        .auth-input:focus { border-color: #000; }
+        .auth-btn { width: 100%; background: #000; color: white; border: none; padding: 12px; border-radius: 48px; font-weight: 600; cursor: pointer; margin-bottom: 16px; }
+        .auth-divider { text-align: center; color: #999; font-size: 0.75rem; margin: 16px 0; }
+        .social-buttons { display: flex; gap: 12px; }
+        .social-btn { flex: 1; background: #F5F5F5; border: 1px solid #E0E0E0; padding: 10px; border-radius: 48px; cursor: pointer; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .switch-auth { text-align: center; margin-top: 16px; font-size: 0.8rem; color: #666; }
+        .switch-auth span { color: #000; font-weight: 600; cursor: pointer; }
+        .error-msg { color: #e53935; font-size: 0.75rem; margin-top: -12px; margin-bottom: 12px; }
+        .header { padding: 12px 24px; border-bottom: 1px solid #EDEDED; display: flex; justify-content: space-between; align-items: center; background: white; flex-shrink: 0; }
         .logo-area { display: flex; align-items: baseline; gap: 6px; }
-        .logo { font-weight: 800; font-size: 1.5rem; letter-spacing: -0.02em; color: #000; }
+        .logo { font-weight: 800; font-size: 1.5rem; color: #000; }
         .logo-sub { font-size: 0.7rem; font-weight: 500; color: #888; }
-        
+        .header-actions { display: flex; gap: 16px; align-items: center; }
+        .notify-btn { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #333; position: relative; }
+        .notify-badge { position: absolute; top: -5px; right: -8px; background: #e53935; color: white; font-size: 0.6rem; border-radius: 50%; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; display: none; }
+        .notifications-panel { position: absolute; top: 60px; right: 20px; width: 300px; background: white; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); z-index: 1500; border: 1px solid #E8E8E8; max-height: 400px; overflow-y: auto; display: none; }
+        .notifications-panel.show { display: block; }
+        .notif-header { padding: 12px 16px; border-bottom: 1px solid #E8E8E8; font-weight: 700; }
+        .notif-item { padding: 10px 16px; border-bottom: 1px solid #F0F0F0; font-size: 0.8rem; }
+        .notif-item:last-child { border-bottom: none; }
+        .notif-time { font-size: 0.65rem; color: #999; margin-top: 4px; }
         .main-layout { display: flex; flex: 1; overflow: hidden; }
-        
-        .chats-sidebar { 
-            width: 260px; 
-            background: #FAFAFA; 
-            border-right: 1px solid #EFEFEF; 
-            display: flex; 
-            flex-direction: column; 
-            overflow-y: auto; 
-            flex-shrink: 0; 
-            position: relative;
-        }
-        
-        .sidebar-content {
-            flex: 1;
-            overflow-y: auto;
-        }
-        
+        .chats-sidebar { width: 260px; background: #FAFAFA; border-right: 1px solid #EFEFEF; display: flex; flex-direction: column; overflow-y: auto; flex-shrink: 0; position: relative; }
+        .sidebar-content { flex: 1; overflow-y: auto; }
         .top-bar { padding: 16px 12px 8px 12px; border-bottom: 1px solid #E8E8E8; }
-        .plan-chip-top { background: #fff; border-radius: 24px; padding: 10px 12px; border: 1px solid #EAEAEA; margin-bottom: 8px; }
+        .plan-chip-top { background: #fff; border-radius: 24px; padding: 10px 12px; border: 1px solid #EAEAEA; margin-bottom: 8px; transition: all 0.2s; }
+        .plan-chip-top.limit-reached { border-color: #e53935; background: #fff5f5; }
         .plan-name-top { font-weight: 700; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; }
         .usage-bar-top { background: #E8E8E8; border-radius: 20px; height: 4px; margin: 8px 0; overflow: hidden; }
         .usage-fill-top { background: #000; height: 4px; width: 0%; border-radius: 20px; }
+        .limit-warning { font-size: 0.65rem; color: #e53935; margin-top: 6px; text-align: center; display: none; }
         .plans-button { width: 100%; background: #F0F0F0; border: 1px solid #E0E0E0; padding: 8px 12px; border-radius: 40px; font-weight: 600; font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; color: #111; transition: 0.2s; }
         .plans-button:hover { background: #E8E8E8; }
-        
         .chats-section { display: flex; flex-direction: column; overflow: hidden; padding: 12px 12px 0 12px; }
         .sidebar-header { display: flex; justify-content: space-between; align-items: center; padding: 0 8px 8px 8px; margin-bottom: 8px; }
         .chats-header { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: #999; font-weight: 600; }
@@ -179,127 +67,33 @@
         .chat-action-btn { background: none; border: none; cursor: pointer; color: #888; font-size: 0.7rem; padding: 2px 4px; border-radius: 6px; }
         .chat-action-btn:hover { color: #000; background: #E0E0E0; }
         .pin-btn.pinned { color: #000; }
-        
-        /* Профиль внизу сайдбара */
-        .sidebar-footer {
-            flex-shrink: 0;
-            border-top: 1px solid #E8E8E8;
-            padding: 12px;
-            background: #FAFAFA;
-        }
-        .profile-card {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 8px 12px;
-            border-radius: 40px;
-            cursor: pointer;
-            transition: 0.2s;
-            position: relative;
-        }
-        .profile-card:hover {
-            background: #F0F0F0;
-        }
-        .profile-avatar {
-            width: 36px;
-            height: 36px;
-            background: #000;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
-        .profile-info {
-            flex: 1;
-            overflow: hidden;
-        }
-        .profile-name {
-            font-weight: 600;
-            font-size: 0.85rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .profile-email {
-            font-size: 0.7rem;
-            color: #888;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .profile-arrow {
-            color: #999;
-            font-size: 0.8rem;
-            transition: transform 0.2s;
-        }
-        .profile-arrow.open {
-            transform: rotate(180deg);
-        }
-        
-        /* Popup logout */
-        .logout-popup {
-            position: absolute;
-            bottom: 70px;
-            left: 20px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            padding: 8px 0;
-            min-width: 180px;
-            z-index: 1500;
-            border: 1px solid #E8E8E8;
-        }
-        .logout-popup button {
-            width: 100%;
-            background: none;
-            border: none;
-            padding: 10px 16px;
-            text-align: left;
-            cursor: pointer;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #e53935;
-        }
-        .logout-popup button:hover {
-            background: #F5F5F5;
-        }
-        
+        .sidebar-footer { flex-shrink: 0; border-top: 1px solid #E8E8E8; padding: 12px; background: #FAFAFA; position: relative; }
+        .profile-card { display: flex; align-items: center; gap: 12px; padding: 8px 12px; border-radius: 40px; cursor: pointer; transition: 0.2s; position: relative; }
+        .profile-card:hover { background: #F0F0F0; }
+        .profile-avatar { width: 36px; height: 36px; background: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 0.9rem; }
+        .profile-info { flex: 1; overflow: hidden; }
+        .profile-name { font-weight: 600; font-size: 0.85rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .profile-email { font-size: 0.7rem; color: #888; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .profile-arrow { color: #999; font-size: 0.8rem; transition: transform 0.2s; }
+        .profile-arrow.open { transform: rotate(180deg); }
+        .logout-popup { position: absolute; bottom: 100%; left: 12px; right: 12px; background: white; border-radius: 16px; box-shadow: 0 -4px 20px rgba(0,0,0,0.15); padding: 8px 0; z-index: 1500; border: 1px solid #E8E8E8; margin-bottom: 8px; display: none; }
+        .logout-popup.show { display: block; }
+        .logout-popup button { width: 100%; background: none; border: none; padding: 10px 16px; text-align: left; cursor: pointer; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; display: flex; align-items: center; gap: 10px; color: #e53935; border-radius: 8px; }
+        .logout-popup button:hover { background: #F5F5F5; }
         .chat-area { flex: 1; display: flex; flex-direction: column; background: #FFFFFF; overflow: hidden; position: relative; }
         .messages-container { flex: 1; overflow-y: auto; padding: 20px 28px; display: flex; flex-direction: column; gap: 16px; }
-        
-        .empty-chat-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: #aaa;
-            font-size: 1rem;
-            font-weight: 500;
-            pointer-events: none;
-            z-index: 1;
-        }
-        
+        .empty-chat-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: #aaa; font-size: 1rem; font-weight: 500; pointer-events: none; z-index: 1; }
         .message { display: flex; gap: 12px; max-width: 85%; animation: fadeSlide 0.2s ease; }
         .message.user { align-self: flex-end; flex-direction: row-reverse; }
         .avatar { width: 34px; height: 34px; background: #F2F2F2; border-radius: 100%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; }
         .message.user .avatar { background: #000; color: white; }
         .bubble { background: #F6F6F6; padding: 10px 16px; border-radius: 20px; font-size: 0.9rem; line-height: 1.45; color: #111; word-break: break-word; font-weight: 400; }
         .message.user .bubble { background: #000; color: white; }
-        
         .mode-badge { font-size: 0.65rem; color: #888; margin-bottom: 4px; font-weight: 500; }
-        
         .code-block-wrapper { position: relative; margin: 8px 0; background: #F0F2F5; border-radius: 12px; overflow: hidden; border: 1px solid #E2E6EA; }
         .code-header { display: flex; justify-content: flex-end; padding: 5px 10px; background: #E8ECF0; border-bottom: 1px solid #DCE0E5; }
         .copy-code-btn { background: #FFFFFF; border: 1px solid #CCD0D5; color: #1A1A1A; font-size: 0.7rem; padding: 3px 10px; border-radius: 20px; cursor: pointer; font-weight: 600; }
         .code-block { padding: 12px; margin: 0; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; line-height: 1.45; color: #1E1E1E; background: #F8F9FA; white-space: pre-wrap; word-break: break-word; }
-        
         .process-container { background: #F6F6F6; border-radius: 20px; padding: 14px 18px; display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 500px; }
         .process-step { display: flex; align-items: center; gap: 12px; font-size: 0.85rem; color: #444; }
         .process-step .step-icon { width: 20px; text-align: center; font-size: 0.85rem; }
@@ -308,65 +102,57 @@
         .process-step.completed .step-icon { color: #22c55e; }
         .step-spinner { width: 14px; height: 14px; border: 2px solid #E0E0E0; border-top-color: #000; border-radius: 50%; animation: spin 0.8s linear infinite; display: inline-block; }
         @keyframes spin { to { transform: rotate(360deg); } }
-        
         .input-area { border-top: 1px solid #EDEDED; padding: 16px 24px 20px 24px; background: white; flex-shrink: 0; }
         .input-wrapper { display: flex; gap: 12px; align-items: flex-end; background: #FCFCFC; border-radius: 48px; padding: 6px 6px 6px 22px; border: 1px solid #E8E8E8; }
         .input-wrapper:focus-within { border-color: #AAA; }
         .input-wrapper textarea { flex: 1; border: none; background: transparent; padding: 12px 0; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; resize: none; outline: none; max-height: 100px; }
-        .send-btn { background: #000; border: none; width: 38px; height: 38px; border-radius: 38px; color: white; cursor: pointer; }
-        .send-btn:disabled { background: #CCC; }
-        
+        .attach-btn { background: none; border: none; font-size: 1.1rem; cursor: pointer; color: #888; padding: 8px; border-radius: 50%; transition: 0.2s; }
+        .attach-btn:hover { background: #F0F0F0; color: #000; }
+        .file-name { font-size: 0.7rem; color: #666; margin-left: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px; }
+        .send-btn { background: #000; border: none; width: 38px; height: 38px; border-radius: 38px; color: white; cursor: pointer; transition: 0.2s; }
+        .send-btn:disabled { background: #CCC; cursor: not-allowed; }
         @keyframes fadeSlide { from { opacity: 0; transform: translateY(6px);} to { opacity: 1; transform: translateY(0);} }
-        
-        @media (max-width: 768px) {
-            .chats-sidebar { width: 220px; }
-            .message { max-width: 95%; }
-            .messages-container { padding: 16px; }
-            .input-area { padding: 12px 16px 16px 16px; }
-        }
-        
+        @media (max-width: 768px) { .chats-sidebar { width: 220px; } .message { max-width: 95%; } .messages-container { padding: 16px; } .input-area { padding: 12px 16px 16px 16px; } }
         ::-webkit-scrollbar { width: 4px; }
-        .toast { position: fixed; bottom: 80px; right: 24px; background: #1a1a1a; color: white; padding: 8px 16px; border-radius: 40px; font-size: 0.75rem; font-weight: 500; z-index: 2000; animation: fadeOut 2s ease forwards; pointer-events: none; }
-        @keyframes fadeOut { 0% { opacity: 1; transform: translateY(0); } 70% { opacity: 1; } 100% { opacity: 0; transform: translateY(-15px); visibility: hidden; } }
+        .center-toast { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.75); color: white; padding: 12px 24px; border-radius: 40px; font-size: 0.85rem; font-weight: 500; z-index: 3000; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; text-align: center; max-width: 80%; white-space: nowrap; }
+        .center-toast.show { opacity: 1; }
         .bubble strong { font-weight: 700; color: inherit; }
+        .drop-zone { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 5000; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: white; pointer-events: none; opacity: 0; transition: 0.2s; }
+        .drop-zone.active { opacity: 1; pointer-events: all; }
     </style>
 </head>
 <body>
 <div class="app-container" id="appContainer" style="display: none;">
     <div class="header">
         <div class="logo-area"><span class="logo">Mindcode</span><span class="logo-sub">intelligence</span></div>
-        <div style="width: 70px;"></div>
+        <div class="header-actions">
+            <button class="notify-btn" id="notifyBtn"><i class="fas fa-bell"></i><span id="notifyBadge" class="notify-badge">0</span></button>
+        </div>
     </div>
+    <div id="notificationsPanel" class="notifications-panel"><div class="notif-header">Уведомления</div><div id="notificationsList"></div></div>
     <div class="main-layout">
         <div class="chats-sidebar">
             <div class="sidebar-content">
                 <div class="top-bar">
-                    <div class="plan-chip-top">
-                        <div class="plan-name-top">
-                            <span id="sidebarPlanName">Free</span>
-                            <span style="font-size:0.7rem; color:#666;" id="sidebarUsageText">0/5</span>
-                        </div>
+                    <div class="plan-chip-top" id="planChipTop">
+                        <div class="plan-name-top"><span id="sidebarPlanName">Free</span><span id="sidebarUsageText">0/5</span></div>
                         <div class="usage-bar-top"><div class="usage-fill-top" id="usageFillTop"></div></div>
+                        <div id="limitWarning" class="limit-warning">Лимит запросов исчерпан</div>
                     </div>
                     <button class="plans-button" id="showPlansBtn"><i class="fas fa-tags"></i> Тарифы</button>
                 </div>
                 <div class="chats-section">
-                    <div class="sidebar-header">
-                        <span class="chats-header">История</span>
-                        <button class="new-chat-small" id="newChatSidebarBtn"><i class="fas fa-plus"></i></button>
-                    </div>
+                    <div class="sidebar-header"><span class="chats-header">История</span><button class="new-chat-small" id="newChatSidebarBtn"><i class="fas fa-plus"></i></button></div>
                     <div class="chats-list" id="chatsList"></div>
                 </div>
             </div>
-            <div class="sidebar-footer">
+            <div class="sidebar-footer" id="sidebarFooter">
                 <div class="profile-card" id="profileCard">
                     <div class="profile-avatar" id="profileAvatar">U</div>
-                    <div class="profile-info">
-                        <div class="profile-name" id="profileName">User</div>
-                        <div class="profile-email" id="profileEmail">user@example.com</div>
-                    </div>
+                    <div class="profile-info"><div class="profile-name" id="profileName">User</div><div class="profile-email" id="profileEmail">user@example.com</div></div>
                     <div class="profile-arrow" id="profileArrow"><i class="fas fa-chevron-up"></i></div>
                 </div>
+                <div id="logoutPopup" class="logout-popup"><button id="confirmLogoutBtn"><i class="fas fa-sign-out-alt"></i> Выйти из аккаунта</button></div>
             </div>
         </div>
         <div class="chat-area">
@@ -374,35 +160,23 @@
             <div class="input-area">
                 <div class="input-wrapper">
                     <textarea id="promptInput" rows="1" placeholder="Напишите промт..."></textarea>
+                    <button class="attach-btn" id="attachBtn" title="Прикрепить файл"><i class="fas fa-paperclip"></i></button>
+                    <span id="fileNameDisplay" class="file-name"></span>
                     <button class="send-btn" id="sendBtn"><i class="fas fa-arrow-up"></i></button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div id="dropZone" class="drop-zone">Перетащите файл сюда</div>
 
 <div id="plansModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); align-items:center; justify-content:center; z-index:2000;">
     <div style="background:white; max-width:500px; width:90%; border-radius:32px; padding:28px;">
-        <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
-            <h3 style="font-weight:700;">Выберите тариф</h3>
-            <button id="closeModalBtn" style="background:none; border:none; font-size:1.4rem; cursor:pointer;">×</button>
-        </div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:20px;"><h3 style="font-weight:700;">Выберите тариф</h3><button id="closeModalBtn" style="background:none; border:none; font-size:1.4rem; cursor:pointer;">x</button></div>
         <div style="display:flex; flex-direction:column; gap:16px;">
-            <div style="border:1px solid #eee; border-radius:24px; padding:16px;">
-                <div style="font-weight:800;">Free</div>
-                <div style="font-size:0.8rem;">5 запросов/мес, 1 агент</div>
-                <button class="selectPlanBtn" data-plan="free" style="margin-top:12px; background:#F0F0F0; border:none; padding:6px 0; width:100%; border-radius:40px; cursor:pointer;">Текущий</button>
-            </div>
-            <div style="border:1px solid #000; border-radius:24px; padding:16px;">
-                <div style="font-weight:800;">Pro</div>
-                <div style="font-size:0.8rem;">200 запросов, 3 агента</div>
-                <button class="selectPlanBtn" data-plan="pro" style="margin-top:12px; background:#000; color:white; border:none; padding:6px 0; width:100%; border-radius:40px; cursor:pointer;">29$ / месяц</button>
-            </div>
-            <div style="border:1px solid #eee; border-radius:24px; padding:16px;">
-                <div style="font-weight:800;">Team</div>
-                <div style="font-size:0.8rem;">1000 запросов, все агенты</div>
-                <button class="selectPlanBtn" data-plan="team" style="margin-top:12px; background:#F0F0F0; border:none; padding:6px 0; width:100%; border-radius:40px; cursor:pointer;">79$ / чел</button>
-            </div>
+            <div style="border:1px solid #eee; border-radius:24px; padding:16px;" id="planFreeCard"><div style="font-weight:800;">Free</div><div style="font-size:0.8rem;">5 запросов/мес, 1 агент (CodeMine Lite)</div><button class="selectPlanBtn" data-plan="free" style="margin-top:12px; background:#F0F0F0; border:none; padding:6px 0; width:100%; border-radius:40px; cursor:pointer;" id="planFreeBtn">Текущий</button></div>
+            <div style="border:1px solid #000; border-radius:24px; padding:16px;" id="planProCard"><div style="font-weight:800;">Pro</div><div style="font-size:0.8rem;">200 запросов, 3 агента (CodeMine + DocuForge + Testron)</div><button class="selectPlanBtn" data-plan="pro" style="margin-top:12px; background:#000; color:white; border:none; padding:6px 0; width:100%; border-radius:40px; cursor:pointer;" id="planProBtn">29$ / месяц</button></div>
+            <div style="border:1px solid #eee; border-radius:24px; padding:16px;" id="planTeamCard"><div style="font-weight:800;">Team</div><div style="font-size:0.8rem;">1000 запросов, все агенты (CodeMine, MineThink, DocuForge, Testron, Optimus, SecureAI, Architect, DevOps)</div><button class="selectPlanBtn" data-plan="team" style="margin-top:12px; background:#F0F0F0; border:none; padding:6px 0; width:100%; border-radius:40px; cursor:pointer;" id="planTeamBtn">79$ / чел</button></div>
         </div>
     </div>
 </div>
@@ -411,7 +185,7 @@
     const SAMBANOVA_API_KEY = "6329c000-1e83-4704-8432-b11205631d84";
     const API_URL = "https://api.sambanova.ai/v1/chat/completions";
     
-    const MINDCORE_SYSTEM_PROMPM = `Ты — Mindcode AI, профессиональный ассистент для разработчиков.
+    const MINDCORE_SYSTEM_PROMPT = `Ты — Mindcode AI, профессиональный ассистент для разработчиков.
 
 Твои возможности:
 - Писать код на любых языках (Python, JS, Go, Rust, C++, Java, C#, PHP, Swift, Kotlin)
@@ -433,7 +207,7 @@
 - Давай конкретные, работающие примеры кода
 - Если задача сложная — разбей на этапы и объясни логику
 
-Твоя цель — помочь разработчику написать качественный код и решить любую задачу.`;
+Твоя цель — помочь разработчику написать качественный код, понять проблему и решить любую задачу.`;
     
     let currentUser = null;
     let currentTier = "free";
@@ -442,198 +216,113 @@
     let isProcessing = false;
     let activeChatId = null;
     let chats = [];
+    let notifications = [];
+    let attachedFile = null;
     
-    function showToast(msg) { let t = document.createElement('div'); t.className = 'toast'; t.innerText = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 2000); }
+    function showCenterToast(msg) { 
+        let toast = document.createElement('div'); 
+        toast.className = 'center-toast'; 
+        toast.innerText = msg; 
+        document.body.appendChild(toast); 
+        setTimeout(() => toast.classList.add('show'), 10); 
+        setTimeout(() => { 
+            toast.classList.remove('show'); 
+            setTimeout(() => toast.remove(), 300); 
+        }, 2500); 
+    }
+    
+    function showToast(msg) { showCenterToast(msg); }
+    
     function escapeHtml(str) { return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'); }
     function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+    function validateEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
+    function validatePassword(password) { return /^[A-Za-z0-9]+$/.test(password) && password.length >= 4 && password.length <= 32; }
     
-    // Auth functions
-    function saveUser(user) {
-        localStorage.setItem('mindcode_user', JSON.stringify(user));
-        currentUser = user;
+    function addNotification(title, message) { notifications.unshift({ title, message, time: new Date().toLocaleTimeString() }); updateNotificationsUI(); }
+    function updateNotificationsUI() { 
+        let list = document.getElementById('notificationsList'); 
+        let badge = document.getElementById('notifyBadge'); 
+        if(!list) return; 
+        list.innerHTML = notifications.map(n => `<div class="notif-item"><div><strong>${escapeHtml(n.title)}</strong></div><div>${escapeHtml(n.message)}</div><div class="notif-time">${n.time}</div></div>`).join(''); 
+        if(notifications.length > 0) { badge.style.display = 'flex'; badge.textContent = notifications.length; } 
+        else { badge.style.display = 'none'; } 
     }
-    function loadUser() {
-        let saved = localStorage.getItem('mindcode_user');
-        if(saved) {
-            currentUser = JSON.parse(saved);
-            return true;
-        }
-        return false;
-    }
+    
+    function saveUser(user) { localStorage.setItem('mindcode_user', JSON.stringify(user)); currentUser = user; }
+    function loadUser() { let saved = localStorage.getItem('mindcode_user'); if(saved) { currentUser = JSON.parse(saved); return true; } return false; }
     
     function showAuthModal(onSuccess) {
-        let modal = document.createElement('div');
-        modal.className = 'auth-overlay';
-        modal.innerHTML = `
-            <div class="auth-modal">
-                <h2>Добро пожаловать</h2>
-                <p>Войдите или зарегистрируйтесь, чтобы продолжить</p>
-                <div id="authForm">
-                    <input type="email" id="authEmail" class="auth-input" placeholder="Email">
-                    <input type="password" id="authPassword" class="auth-input" placeholder="Пароль (минимум 4 символа)">
-                    <div id="authError" class="error-msg"></div>
-                    <button id="authSubmitBtn" class="auth-btn">Войти</button>
-                    <div class="auth-divider">или</div>
-                    <div class="social-buttons">
-                        <button id="googleAuthBtn" class="social-btn"><i class="fab fa-google"></i> Google</button>
-                        <button id="githubAuthBtn" class="social-btn"><i class="fab fa-github"></i> GitHub</button>
-                    </div>
-                    <div class="switch-auth">Нет аккаунта? <span id="switchToRegister">Зарегистрироваться</span></div>
-                </div>
-            </div>
-        `;
+        let modal = document.createElement('div'); modal.className = 'auth-overlay';
+        modal.innerHTML = `<div class="auth-modal"><div class="auth-logo"><span class="logo-main">Mindcode</span><span class="logo-sub">intelligence</span></div><h2 id="authTitle">Вход</h2><p id="authSubtitle">Войдите в свой аккаунт</p><div id="authForm"><input type="email" id="authEmail" class="auth-input" placeholder="Email (example@mail.com)"><input type="password" id="authPassword" class="auth-input" placeholder="Пароль (только буквы и цифры, 4-32)"><div id="authError" class="error-msg"></div><button id="authSubmitBtn" class="auth-btn">Войти</button><div class="auth-divider">или</div><div class="social-buttons"><button id="googleAuthBtn" class="social-btn"><i class="fab fa-google"></i> Google</button><button id="githubAuthBtn" class="social-btn"><i class="fab fa-github"></i> GitHub</button></div><div class="switch-auth" id="switchText">Нет аккаунта? <span id="switchToRegister">Зарегистрироваться</span></div></div></div>`;
         document.body.appendChild(modal);
-        
         let isLogin = true;
-        const authEmail = modal.querySelector('#authEmail');
-        const authPassword = modal.querySelector('#authPassword');
-        const authError = modal.querySelector('#authError');
-        const authSubmitBtn = modal.querySelector('#authSubmitBtn');
-        const switchBtn = modal.querySelector('#switchToRegister');
-        
-        function updateButton() {
-            authSubmitBtn.textContent = isLogin ? 'Войти' : 'Зарегистрироваться';
+        const authEmail = modal.querySelector('#authEmail'), authPassword = modal.querySelector('#authPassword'), authError = modal.querySelector('#authError'), authSubmitBtn = modal.querySelector('#authSubmitBtn'), authTitle = modal.querySelector('#authTitle'), authSubtitle = modal.querySelector('#authSubtitle'), switchTextDiv = modal.querySelector('#switchText');
+        function updateUI() { if(isLogin) { authTitle.textContent = 'Вход'; authSubtitle.textContent = 'Войдите в свой аккаунт'; authSubmitBtn.textContent = 'Войти'; switchTextDiv.innerHTML = 'Нет аккаунта? <span id="switchToRegister">Зарегистрироваться</span>'; } else { authTitle.textContent = 'Регистрация'; authSubtitle.textContent = 'Создайте новый аккаунт'; authSubmitBtn.textContent = 'Зарегистрироваться'; switchTextDiv.innerHTML = 'Есть аккаунт? <span id="switchToRegister">Войти</span>'; } modal.querySelector('#switchToRegister').onclick = () => { isLogin = !isLogin; updateUI(); }; }
+        function handleAuth() { let email = authEmail.value.trim(), password = authPassword.value; authError.textContent = ''; if(!email || !password) { authError.textContent = 'Заполните все поля'; return; } if(!validateEmail(email)) { authError.textContent = 'Введите корректный email'; return; } if(!validatePassword(password)) { authError.textContent = 'Пароль: буквы и цифры, 4-32 символа'; return; }
+            if(isLogin) { let users = JSON.parse(localStorage.getItem('mindcode_users') || '{}'); if(users[email] && users[email].password === password) { saveUser({ email: email, name: email.split('@')[0] }); modal.remove(); if(onSuccess) onSuccess(); else initApp(); } else { authError.textContent = 'Неверный email или пароль'; } }
+            else { let users = JSON.parse(localStorage.getItem('mindcode_users') || '{}'); if(users[email]) { authError.textContent = 'Пользователь уже существует'; return; } users[email] = { email: email, password: password, name: email.split('@')[0], tier: "free", used: 0 }; localStorage.setItem('mindcode_users', JSON.stringify(users)); saveUser({ email: email, name: email.split('@')[0] }); modal.remove(); if(onSuccess) onSuccess(); else initApp(); }
         }
-        
-        switchBtn.onclick = () => {
-            isLogin = !isLogin;
-            updateButton();
-        };
-        
-        function handleAuth() {
-            let email = authEmail.value.trim();
-            let password = authPassword.value;
-            authError.textContent = '';
-            
-            if(!email || !password) {
-                authError.textContent = 'Заполните все поля';
-                return;
-            }
-            if(!isLogin && password.length < 4) {
-                authError.textContent = 'Пароль должен быть минимум 4 символа';
-                return;
-            }
-            
-            if(isLogin) {
-                let users = JSON.parse(localStorage.getItem('mindcode_users') || '{}');
-                if(users[email] && users[email].password === password) {
-                    saveUser({ email: email, name: email.split('@')[0] });
-                    modal.remove();
-                    if(onSuccess) onSuccess();
-                    else initApp();
-                } else {
-                    authError.textContent = 'Неверный email или пароль';
-                }
-            } else {
-                let users = JSON.parse(localStorage.getItem('mindcode_users') || '{}');
-                if(users[email]) {
-                    authError.textContent = 'Пользователь уже существует';
-                    return;
-                }
-                users[email] = { email: email, password: password, name: email.split('@')[0] };
-                localStorage.setItem('mindcode_users', JSON.stringify(users));
-                saveUser({ email: email, name: email.split('@')[0] });
-                modal.remove();
-                if(onSuccess) onSuccess();
-                else initApp();
-            }
-        }
-        
-        authSubmitBtn.onclick = handleAuth;
-        authPassword.addEventListener('keypress', (e) => { if(e.key === 'Enter') handleAuth(); });
-        
-        modal.querySelector('#googleAuthBtn').onclick = () => {
-            authError.textContent = 'Для полноценной OAuth-авторизации нужен бэкенд. Используйте email-регистрацию.';
-        };
-        modal.querySelector('#githubAuthBtn').onclick = () => {
-            authError.textContent = 'Для полноценной OAuth-авторизации нужен бэкенд. Используйте email-регистрацию.';
-        };
+        updateUI(); authSubmitBtn.onclick = handleAuth; authPassword.addEventListener('keypress', (e) => { if(e.key === 'Enter') handleAuth(); });
+        modal.querySelector('#googleAuthBtn').onclick = () => { authError.textContent = 'Для OAuth-авторизации нужен бэкенд. Используйте email-регистрацию.'; };
+        modal.querySelector('#githubAuthBtn').onclick = () => { authError.textContent = 'Для OAuth-авторизации нужен бэкенд. Используйте email-регистрацию.'; };
     }
     
-    // Logout popup
     let logoutPopup = null;
-    function toggleLogoutPopup() {
-        if(logoutPopup) {
-            logoutPopup.remove();
-            logoutPopup = null;
-            document.getElementById('profileArrow').classList.remove('open');
-        } else {
-            logoutPopup = document.createElement('div');
-            logoutPopup.className = 'logout-popup';
-            logoutPopup.innerHTML = `<button id="confirmLogoutBtn"><i class="fas fa-sign-out-alt"></i> Выйти из аккаунта</button>`;
-            document.body.appendChild(logoutPopup);
-            document.getElementById('profileArrow').classList.add('open');
-            
-            document.getElementById('confirmLogoutBtn').onclick = () => {
-                logoutPopup.remove();
-                logoutPopup = null;
-                document.getElementById('profileArrow').classList.remove('open');
-                // Очищаем данные пользователя
-                localStorage.removeItem('mindcode_user');
-                if(currentUser) {
-                    localStorage.removeItem(`mindcode_${currentUser.email}_chats`);
-                    localStorage.removeItem(`mindcode_${currentUser.email}_activeChat`);
-                    localStorage.removeItem(`mindcode_${currentUser.email}_tier`);
-                    localStorage.removeItem(`mindcode_${currentUser.email}_used`);
-                }
-                // Показываем окно входа
-                document.getElementById('appContainer').style.display = 'none';
-                showAuthModal(() => {
-                    initApp();
-                });
-            };
-            
-            // Закрыть при клике вне
-            setTimeout(() => {
-                document.addEventListener('click', function closePopup(e) {
-                    if(logoutPopup && !logoutPopup.contains(e.target) && !document.getElementById('profileCard').contains(e.target)) {
-                        logoutPopup.remove();
-                        logoutPopup = null;
-                        document.getElementById('profileArrow').classList.remove('open');
-                        document.removeEventListener('click', closePopup);
-                    }
-                });
-            }, 0);
-        }
-    }
+    function toggleLogoutPopup() { let popup = document.getElementById('logoutPopup'); if(popup) popup.classList.toggle('show'); }
     
-    // App functions
+    function handleFile(file) { if(file.size > 5 * 1024 * 1024) { showToast('Файл слишком большой (макс. 5 МБ)'); return false; } attachedFile = file; document.getElementById('fileNameDisplay').innerText = file.name; return true; }
+    
     function initApp() {
         document.getElementById('appContainer').style.display = 'flex';
         document.getElementById('profileAvatar').innerText = currentUser.name.charAt(0).toUpperCase();
         document.getElementById('profileName').innerText = currentUser.name;
         document.getElementById('profileEmail').innerText = currentUser.email;
-        
-        // Убираем старый обработчик, чтобы не дублировать
-        const profileCard = document.getElementById('profileCard');
-        const newProfileCard = profileCard.cloneNode(true);
-        profileCard.parentNode.replaceChild(newProfileCard, profileCard);
-        newProfileCard.querySelector('#profileArrow').id = 'profileArrow';
-        newProfileCard.id = 'profileCard';
-        newProfileCard.onclick = (e) => {
-            e.stopPropagation();
-            toggleLogoutPopup();
+        document.getElementById('profileCard').onclick = (e) => { e.stopPropagation(); toggleLogoutPopup(); };
+        document.getElementById('confirmLogoutBtn').onclick = () => {
+            localStorage.removeItem('mindcode_user');
+            if(currentUser) { localStorage.removeItem(`mindcode_${currentUser.email}_chats`); localStorage.removeItem(`mindcode_${currentUser.email}_activeChat`); localStorage.removeItem(`mindcode_${currentUser.email}_tier`); localStorage.removeItem(`mindcode_${currentUser.email}_used`); }
+            document.getElementById('appContainer').style.display = 'none';
+            showAuthModal(() => { initApp(); });
         };
+        document.addEventListener('click', (e) => { let popup = document.getElementById('logoutPopup'); if(popup && !popup.contains(e.target) && !document.getElementById('profileCard').contains(e.target)) popup.classList.remove('show'); });
         
-        loadUserData();
-        attachEventListeners();
+        let notifyBtn = document.getElementById('notifyBtn'), notifyPanel = document.getElementById('notificationsPanel');
+        notifyBtn.onclick = (e) => { e.stopPropagation(); notifyPanel.classList.toggle('show'); };
+        document.addEventListener('click', (e) => { if(!notifyPanel.contains(e.target) && e.target !== notifyBtn) notifyPanel.classList.remove('show'); });
+        
+        let attachBtn = document.getElementById('attachBtn');
+        attachBtn.onclick = () => { let input = document.createElement('input'); input.type = 'file'; input.onchange = (e) => { if(e.target.files[0]) handleFile(e.target.files[0]); }; input.click(); };
+        
+        let dropZone = document.getElementById('dropZone');
+        document.body.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('active'); });
+        document.body.addEventListener('dragleave', (e) => { e.preventDefault(); dropZone.classList.remove('active'); });
+        document.body.addEventListener('drop', (e) => { e.preventDefault(); dropZone.classList.remove('active'); if(e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
+        
+        loadUserData(); attachEventListeners(); updatePlansModalUI();
+    }
+    
+    function updatePlansModalUI() {
+        let freeBtn = document.getElementById('planFreeBtn'), proBtn = document.getElementById('planProBtn'), teamBtn = document.getElementById('planTeamBtn');
+        let freeCard = document.getElementById('planFreeCard'), proCard = document.getElementById('planProCard'), teamCard = document.getElementById('planTeamCard');
+        if(currentTier === 'free') { freeBtn.textContent = 'Текущий'; freeBtn.disabled = true; freeCard.style.border = '2px solid #000'; proBtn.disabled = false; proBtn.textContent = '29$ / месяц'; proCard.style.border = '1px solid #eee'; teamBtn.disabled = false; teamBtn.textContent = '79$ / чел'; teamCard.style.border = '1px solid #eee'; }
+        else if(currentTier === 'pro') { proBtn.textContent = 'Текущий'; proBtn.disabled = true; proCard.style.border = '2px solid #000'; freeBtn.disabled = true; freeBtn.textContent = 'Текущий'; freeCard.style.border = '1px solid #eee'; teamBtn.disabled = false; teamBtn.textContent = '79$ / чел'; teamCard.style.border = '1px solid #eee'; }
+        else { teamBtn.textContent = 'Текущий'; teamBtn.disabled = true; teamCard.style.border = '2px solid #000'; freeBtn.disabled = true; freeBtn.textContent = 'Текущий'; freeCard.style.border = '1px solid #eee'; proBtn.disabled = true; proBtn.textContent = '29$ / месяц'; proCard.style.border = '1px solid #eee'; }
     }
     
     function loadUserData() {
-        let saved = localStorage.getItem(`mindcode_${currentUser.email}_chats`);
+        let saved = localStorage.getItem(`mindcode_${currentUser.email}_chats`); 
         if(saved) chats = JSON.parse(saved);
-        let savedActive = localStorage.getItem(`mindcode_${currentUser.email}_activeChat`);
-        let savedTier = localStorage.getItem(`mindcode_${currentUser.email}_tier`);
-        let savedUsed = localStorage.getItem(`mindcode_${currentUser.email}_used`);
-        if(savedTier) currentTier = savedTier;
+        let savedActive = localStorage.getItem(`mindcode_${currentUser.email}_activeChat`), savedTier = localStorage.getItem(`mindcode_${currentUser.email}_tier`), savedUsed = localStorage.getItem(`mindcode_${currentUser.email}_used`);
+        if(savedTier) currentTier = savedTier; 
         if(savedUsed !== null) usedRequests = parseInt(savedUsed);
-        if(currentTier === "free") maxRequests = 5;
-        else if(currentTier === "pro") maxRequests = 200;
+        if(currentTier === "free") maxRequests = 5; 
+        else if(currentTier === "pro") maxRequests = 200; 
         else maxRequests = 1000;
-        if(!chats.length) {
-            chats = [{ id: Date.now(), title: "Новый чат", pinned: false, messages: [] }];
-            activeChatId = chats[0].id;
-        } else if(savedActive && chats.find(c => c.id == savedActive)) activeChatId = savedActive;
+        if(!chats.length) { 
+            chats = [{ id: Date.now(), title: "Новый чат", pinned: false, messages: [] }]; 
+            activeChatId = chats[0].id; 
+        }
+        else if(savedActive && chats.find(c => c.id == savedActive)) activeChatId = savedActive; 
         else activeChatId = chats[0].id;
         renderChatsList();
         renderCurrentChat();
@@ -645,6 +334,8 @@
         localStorage.setItem(`mindcode_${currentUser.email}_activeChat`, activeChatId);
         localStorage.setItem(`mindcode_${currentUser.email}_tier`, currentTier);
         localStorage.setItem(`mindcode_${currentUser.email}_used`, usedRequests);
+        let users = JSON.parse(localStorage.getItem('mindcode_users') || '{}');
+        if(users[currentUser.email]) { users[currentUser.email].tier = currentTier; users[currentUser.email].used = usedRequests; localStorage.setItem('mindcode_users', JSON.stringify(users)); }
     }
     
     function updateUsageUI() {
@@ -653,25 +344,22 @@
         document.getElementById('sidebarUsageText').innerText = `${usedRequests}/${maxRequests}`;
         document.getElementById('sidebarPlanName').innerText = currentTier === "free" ? "Free" : currentTier === "pro" ? "Pro" : "Team";
         let limitReached = (usedRequests >= maxRequests && currentTier !== "team");
+        let planChip = document.getElementById('planChipTop'), limitWarning = document.getElementById('limitWarning');
+        if(limitReached) { planChip.classList.add('limit-reached'); limitWarning.style.display = 'block'; } else { planChip.classList.remove('limit-reached'); limitWarning.style.display = 'none'; }
         document.getElementById('sendBtn').disabled = limitReached || isProcessing;
         document.getElementById('promptInput').disabled = limitReached;
+        if(limitReached && currentTier !== "team") addNotification('Лимит запросов', 'Вы исчерпали лимит запросов. Обновите тариф.');
     }
     
     function renderChatsList() {
-        let container = document.getElementById('chatsList');
+        let container = document.getElementById('chatsList'); 
+        if(!container) return;
         container.innerHTML = '';
-        let sorted = [...chats].sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0));
+        let sorted = [...chats].sort((a,b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0));
         sorted.forEach(chat => {
-            let div = document.createElement('div');
+            let div = document.createElement('div'); 
             div.className = `chat-item ${activeChatId === chat.id ? 'active' : ''} ${chat.pinned ? 'pinned' : ''}`;
-            div.innerHTML = `
-                <span class="chat-name">${escapeHtml(chat.title)}</span>
-                <div class="chat-actions">
-                    <button class="chat-action-btn pin-btn"><i class="fas fa-thumbtack"></i></button>
-                    <button class="chat-action-btn rename-btn"><i class="fas fa-pen"></i></button>
-                    <button class="chat-action-btn delete-btn"><i class="fas fa-trash"></i></button>
-                </div>
-            `;
+            div.innerHTML = `<span class="chat-name">${escapeHtml(chat.title)}</span><div class="chat-actions"><button class="chat-action-btn pin-btn"><i class="fas fa-thumbtack"></i></button><button class="chat-action-btn rename-btn"><i class="fas fa-pen"></i></button><button class="chat-action-btn delete-btn"><i class="fas fa-trash"></i></button></div>`;
             div.querySelector('.pin-btn').onclick = (e) => { e.stopPropagation(); chat.pinned = !chat.pinned; renderChatsList(); saveUserData(); };
             div.querySelector('.rename-btn').onclick = (e) => { e.stopPropagation(); let newName = prompt('Новое название чата:', chat.title); if(newName && newName.trim()) { chat.title = newName.trim(); renderChatsList(); saveUserData(); } };
             div.querySelector('.delete-btn').onclick = (e) => { e.stopPropagation(); if(chats.length === 1) { showToast('Нельзя удалить последний чат'); return; } let idx = chats.findIndex(c => c.id === chat.id); if(idx !== -1) chats.splice(idx, 1); if(activeChatId === chat.id) activeChatId = chats[0].id; renderChatsList(); renderCurrentChat(); saveUserData(); };
@@ -681,217 +369,302 @@
     }
     
     function updateEmptyChatOverlay() {
-        let chat = chats.find(c => c.id === activeChatId);
-        let existing = document.querySelector('.empty-chat-overlay');
+        let chat = chats.find(c => c.id === activeChatId); 
+        let existing = document.querySelector('.empty-chat-overlay'); 
         if(existing) existing.remove();
-        if(chat && chat.messages.length === 0) {
-            let overlay = document.createElement('div');
-            overlay.className = 'empty-chat-overlay';
-            overlay.innerHTML = 'Как Mindcode может тебе помочь?';
-            document.querySelector('.chat-area').appendChild(overlay);
+        if(chat && chat.messages && chat.messages.length === 0) { 
+            let overlay = document.createElement('div'); 
+            overlay.className = 'empty-chat-overlay'; 
+            overlay.innerHTML = 'Как Mindcode может тебе помочь?'; 
+            let chatArea = document.querySelector('.chat-area');
+            if(chatArea) chatArea.appendChild(overlay); 
         }
     }
     
     function renderCurrentChat() {
-        let chat = chats.find(c => c.id === activeChatId);
+        let chat = chats.find(c => c.id === activeChatId); 
         if(!chat) return;
-        let container = document.getElementById('messagesContainer');
+        let container = document.getElementById('messagesContainer'); 
+        if(!container) return;
         container.innerHTML = '';
-        chat.messages.forEach(msg => {
-            if(msg.role === 'user') displayUserMessageStatic(msg.content);
-            else displayAssistantMessageStatic(msg.content, msg.mode);
-        });
-        container.scrollTop = container.scrollHeight;
+        if(chat.messages && chat.messages.length > 0) {
+            chat.messages.forEach(msg => { 
+                if(msg.role === 'user') {
+                    displayUserMessageStatic(msg.content);
+                } else {
+                    displayAssistantMessageStatic(msg.content, msg.mode);
+                }
+            });
+        }
+        container.scrollTop = container.scrollHeight; 
         updateEmptyChatOverlay();
     }
     
-    function displayUserMessageStatic(content) {
-        let div = document.createElement('div'); div.className = 'message user';
-        div.innerHTML = `<div class="avatar"><i class="fas fa-user"></i></div><div class="bubble">${escapeHtml(content).replace(/\n/g, '<br>')}</div>`;
-        document.getElementById('messagesContainer').appendChild(div);
+    function displayUserMessageStatic(content) { 
+        let container = document.getElementById('messagesContainer');
+        if(!container) return;
+        let div = document.createElement('div'); 
+        div.className = 'message user'; 
+        div.innerHTML = `<div class="avatar"><i class="fas fa-user"></i></div><div class="bubble">${escapeHtml(content).replace(/\n/g, '<br>')}</div>`; 
+        container.appendChild(div); 
+        container.scrollTop = container.scrollHeight;
     }
     
     function formatBold(text) { return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); }
     
-    function formatContentWithCodeBlocks(content) {
-        let escaped = escapeHtml(content);
-        escaped = formatBold(escaped);
-        let codeRegex = /```(\w*)\n([\s\S]*?)```/g;
-        let formatted = escaped.replace(codeRegex, (match, lang, code) => {
-            let cleanCode = code.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
-            return `<div class="code-block-wrapper"><div class="code-header"><button class="copy-code-btn" data-code="${escapeHtml(cleanCode).replace(/"/g, '&quot;')}">Копировать</button></div><pre class="code-block"><code>${escapeHtml(cleanCode)}</code></pre></div>`;
-        });
-        return formatted.replace(/\n/g, '<br>');
+    function formatContentWithCodeBlocks(content) { 
+        let escaped = escapeHtml(content); 
+        escaped = formatBold(escaped); 
+        let codeRegex = /```(\w*)\n([\s\S]*?)```/g; 
+        let formatted = escaped.replace(codeRegex, (match, lang, code) => { 
+            let cleanCode = code.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&'); 
+            return `<div class="code-block-wrapper"><div class="code-header"><button class="copy-code-btn" data-code="${escapeHtml(cleanCode).replace(/"/g,'&quot;')}">Копировать код</button></div><pre class="code-block"><code>${escapeHtml(cleanCode)}</code></pre></div>`; 
+        }); 
+        return formatted.replace(/\n/g, '<br>'); 
     }
     
-    function displayAssistantMessageStatic(content, mode) {
-        let div = document.createElement('div'); div.className = 'message assistant';
-        let modeHtml = mode ? `<div class="mode-badge">${mode} режим</div>` : '';
-        let formatted = formatContentWithCodeBlocks(content);
-        div.innerHTML = `<div class="avatar"><i class="fas fa-brain"></i></div><div class="bubble">${modeHtml}${formatted}</div>`;
-        document.getElementById('messagesContainer').appendChild(div);
-        attachCopyEvents();
+    function displayAssistantMessageStatic(content, mode) { 
+        let container = document.getElementById('messagesContainer');
+        if(!container) return;
+        let div = document.createElement('div'); 
+        div.className = 'message assistant'; 
+        let modeHtml = mode ? `<div class="mode-badge">${mode} режим</div>` : ''; 
+        let formatted = formatContentWithCodeBlocks(content); 
+        div.innerHTML = `<div class="avatar"><i class="fas fa-brain"></i></div><div class="bubble">${modeHtml}${formatted}</div>`; 
+        container.appendChild(div); 
+        attachCopyEvents(); 
     }
     
-    function attachCopyEvents() {
-        document.querySelectorAll('.copy-code-btn').forEach(btn => {
-            btn.removeEventListener('click', copyHandler);
-            btn.addEventListener('click', copyHandler);
-        });
+    function attachCopyEvents() { 
+        document.querySelectorAll('.copy-code-btn').forEach(btn => { 
+            btn.removeEventListener('click', copyHandler); 
+            btn.addEventListener('click', copyHandler); 
+        }); 
     }
     
-    function copyHandler(e) {
-        e.stopPropagation();
-        let code = e.currentTarget.getAttribute('data-code');
-        if(code) {
-            navigator.clipboard.writeText(code);
-            showToast('Код скопирован');
-            let orig = e.currentTarget.innerText;
-            e.currentTarget.innerText = 'Готово';
-            setTimeout(() => { e.currentTarget.innerText = orig; }, 1500);
+    function copyHandler(e) { 
+        e.stopPropagation(); 
+        let code = e.currentTarget.getAttribute('data-code'); 
+        if(code) { 
+            navigator.clipboard.writeText(code); 
+            showToast('Код скопирован'); 
+            let orig = e.currentTarget.innerText; 
+            e.currentTarget.innerText = 'Готово'; 
+            setTimeout(() => { e.currentTarget.innerText = orig; }, 1500); 
+        } 
+    }
+    
+    function isCodeRequest(prompt) { 
+        const codeKeywords = ['напиши', 'создай', 'сделай', 'код', 'игру', 'бот', 'телеграм', 'api', 'fastapi', 'react', 'vue', 'angular', 'todo', '3d', 'three', 'python', 'javascript', 'js', 'html', 'css', 'сервер', 'приложение', 'функцию', 'класс', 'алгоритм', 'базу данных', 'sql', 'парсер', 'скрипт']; 
+        const lower = prompt.toLowerCase(); 
+        return codeKeywords.some(kw => lower.includes(kw)); 
+    }
+    
+    async function showProcessSteps(isCode) {
+        let container = document.createElement('div'); 
+        container.className = 'message assistant'; 
+        container.id = 'processContainer';
+        let bubble = document.createElement('div'); 
+        bubble.className = 'bubble'; 
+        bubble.style.padding = '0'; 
+        bubble.style.background = 'transparent';
+        if(isCode) {
+            bubble.innerHTML = `<div class="process-container"><div class="process-step" id="step1"><div class="step-icon"><span class="step-spinner"></span></div><div class="step-text">Анализирую запрос</div></div><div class="process-step" id="step2"><div class="step-icon"><i class="far fa-circle"></i></div><div class="step-text">Активация агентов</div></div><div class="process-step" id="step3"><div class="step-icon"><i class="far fa-circle"></i></div><div class="step-text">Генерация кода (CodeMine)</div></div><div class="process-step" id="step4"><div class="step-icon"><i class="far fa-circle"></i></div><div class="step-text">Проверка и оптимизация</div></div><div class="process-step" id="step5"><div class="step-icon"><i class="far fa-circle"></i></div><div class="step-text">Формирование ответа</div></div></div>`;
+        } else {
+            bubble.innerHTML = `<div class="process-container"><div class="process-step" id="step1"><div class="step-icon"><span class="step-spinner"></span></div><div class="step-text">Анализирую запрос</div></div><div class="process-step" id="step2"><div class="step-icon"><i class="far fa-circle"></i></div><div class="step-text">Обработка сообщения (MineThink)</div></div><div class="process-step" id="step3"><div class="step-icon"><i class="far fa-circle"></i></div><div class="step-text">Формирование ответа</div></div></div>`;
         }
-    }
-    
-    async function showProcessSteps() {
-        let container = document.createElement('div'); container.className = 'message assistant'; container.id = 'processContainer';
-        let bubble = document.createElement('div'); bubble.className = 'bubble'; bubble.style.padding = '0'; bubble.style.background = 'transparent';
-        bubble.innerHTML = `<div class="process-container"><div class="process-step" id="step1"><div class="step-icon"><span class="step-spinner"></span></div><div class="step-text">Анализирую запрос</div></div><div class="process-step" id="step2"><div class="step-icon"><i class="far fa-circle"></i></div><div class="step-text">Обращаюсь к Mindcode AI</div></div><div class="process-step" id="step3"><div class="step-icon"><i class="far fa-circle"></i></div><div class="step-text">Генерирую ответ</div></div><div class="process-step" id="step4"><div class="step-icon"><i class="far fa-circle"></i></div><div class="step-text">Формирую результат</div></div></div>`;
-        let avatar = document.createElement('div'); avatar.className = 'avatar'; avatar.innerHTML = '<i class="fas fa-brain"></i>';
-        container.appendChild(avatar); container.appendChild(bubble);
-        document.getElementById('messagesContainer').appendChild(container);
-        document.getElementById('messagesContainer').scrollTop = document.getElementById('messagesContainer').scrollHeight;
+        let avatar = document.createElement('div'); 
+        avatar.className = 'avatar'; 
+        avatar.innerHTML = '<i class="fas fa-brain"></i>'; 
+        container.appendChild(avatar); 
+        container.appendChild(bubble);
+        let msgContainer = document.getElementById('messagesContainer');
+        if(msgContainer) {
+            msgContainer.appendChild(container); 
+            msgContainer.scrollTop = msgContainer.scrollHeight;
+        }
         
-        let steps = ['step1', 'step2', 'step3', 'step4'];
+        let steps = isCode ? ['step1', 'step2', 'step3', 'step4', 'step5'] : ['step1', 'step2', 'step3'];
         for(let i = 0; i < steps.length; i++) {
-            let step = document.getElementById(steps[i]);
-            if(step) {
-                step.classList.add('active');
-                let iconSpan = step.querySelector('.step-icon');
-                if(iconSpan) iconSpan.innerHTML = '<span class="step-spinner"></span>';
-                await sleep(i === 0 ? 600 : i === 1 ? 800 : i === 2 ? 1000 : 700);
-                step.classList.remove('active');
-                step.classList.add('completed');
-                if(iconSpan) iconSpan.innerHTML = '<i class="fas fa-check-circle"></i>';
+            let step = document.getElementById(steps[i]); 
+            if(step) { 
+                step.classList.add('active'); 
+                let iconSpan = step.querySelector('.step-icon'); 
+                if(iconSpan) iconSpan.innerHTML = '<span class="step-spinner"></span>'; 
+                await sleep(i === 0 ? 800 : i === 1 ? 1000 : i === 2 ? 1200 : i === 3 ? 1000 : 800); 
+                step.classList.remove('active'); 
+                step.classList.add('completed'); 
+                if(iconSpan) iconSpan.innerHTML = '<i class="fas fa-check-circle"></i>'; 
             }
         }
-        await sleep(150);
+        await sleep(200);
         return container;
     }
     
-    async function addAssistantMessage(content, mode) {
-        let chat = chats.find(c => c.id === activeChatId);
-        let msgDiv = document.createElement('div'); msgDiv.className = 'message assistant';
-        let avatar = document.createElement('div'); avatar.className = 'avatar'; avatar.innerHTML = '<i class="fas fa-brain"></i>';
-        let bubble = document.createElement('div'); bubble.className = 'bubble';
-        let modeHtml = mode ? `<div class="mode-badge">${mode} режим</div>` : '';
-        let formattedContent = formatContentWithCodeBlocks(content);
-        bubble.innerHTML = modeHtml + formattedContent;
-        msgDiv.appendChild(avatar); msgDiv.appendChild(bubble);
-        document.getElementById('messagesContainer').appendChild(msgDiv);
-        document.getElementById('messagesContainer').scrollTop = document.getElementById('messagesContainer').scrollHeight;
-        attachCopyEvents();
-        chat.messages.push({ role: "assistant", content: content, mode: mode });
-        saveUserData();
-        updateEmptyChatOverlay();
+    async function addAssistantMessage(content, mode) { 
+        let chat = chats.find(c => c.id === activeChatId); 
+        if(!chat) return;
+        let msgDiv = document.createElement('div'); 
+        msgDiv.className = 'message assistant'; 
+        let avatar = document.createElement('div'); 
+        avatar.className = 'avatar'; 
+        avatar.innerHTML = '<i class="fas fa-brain"></i>'; 
+        let bubble = document.createElement('div'); 
+        bubble.className = 'bubble'; 
+        let modeHtml = mode ? `<div class="mode-badge">${mode} режим</div>` : ''; 
+        let formattedContent = formatContentWithCodeBlocks(content); 
+        bubble.innerHTML = modeHtml + formattedContent; 
+        msgDiv.appendChild(avatar); 
+        msgDiv.appendChild(bubble); 
+        let container = document.getElementById('messagesContainer');
+        if(container) {
+            container.appendChild(msgDiv); 
+            container.scrollTop = container.scrollHeight; 
+        }
+        attachCopyEvents(); 
+        chat.messages.push({ role: "assistant", content: content, mode: mode }); 
+        saveUserData(); 
+        updateEmptyChatOverlay(); 
     }
     
-    async function addUserMessage(content) {
-        let chat = chats.find(c => c.id === activeChatId);
-        if(chat) {
-            chat.messages.push({ role: "user", content });
-            displayUserMessageStatic(content);
-            saveUserData();
-            updateEmptyChatOverlay();
-        }
+    async function addUserMessage(content) { 
+        let chat = chats.find(c => c.id === activeChatId); 
+        if(chat) { 
+            chat.messages.push({ role: "user", content }); 
+            displayUserMessageStatic(content); 
+            saveUserData(); 
+            updateEmptyChatOverlay(); 
+        } 
     }
     
     function getModeName() { return currentTier === "free" ? "Free" : currentTier === "pro" ? "Pro" : "Team"; }
     
-    async function callAI(prompt, chatHistory) {
-        if (!SAMBANOVA_API_KEY || SAMBANOVA_API_KEY === "YOUR_API_KEY_HERE") {
-            return "⚠️ **API-ключ не настроен!**\n\nВставьте свой API-ключ Sambanova в переменную `SAMBANOVA_API_KEY` в коде.";
+    async function callAPI(prompt, chatHistory) {
+        const messages = [{ role: "system", content: MINDCORE_SYSTEM_PROMPT }, ...chatHistory.slice(-15), { role: "user", content: prompt }];
+        if(attachedFile) { 
+            messages.push({ role: "user", content: `Прикреплён файл: ${attachedFile.name}` }); 
         }
-        try {
-            const messages = [{ role: "system", content: MINDCORE_SYSTEM_PROMPM }, ...chatHistory.slice(-15), { role: "user", content: prompt }];
-            const response = await fetch(API_URL, {
-                method: "POST",
-                headers: { "Content-Type": "application/json", "Authorization": `Bearer ${SAMBANOVA_API_KEY}` },
-                body: JSON.stringify({ model: "Meta-Llama-3.1-8B-Instruct", messages: messages, temperature: 0.7, max_tokens: 4096, stream: false })
-            });
-            if (!response.ok) return `❌ **Ошибка API**: ${response.status}`;
-            const data = await response.json();
-            return data.choices[0].message.content;
-        } catch (error) {
-            return `❌ **Ошибка подключения**: ${error.message}`;
+        
+        const response = await fetch(API_URL, { 
+            method: "POST", 
+            headers: { 
+                "Content-Type": "application/json", 
+                "Authorization": `Bearer ${SAMBANOVA_API_KEY}`
+            }, 
+            body: JSON.stringify({ 
+                model: "Meta-Llama-3.1-8B-Instruct", 
+                messages: messages, 
+                temperature: 0.7, 
+                max_tokens: 4096, 
+                stream: false 
+            }) 
+        });
+        
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`API error ${response.status}: ${errorText}`);
         }
+        const data = await response.json();
+        return data.choices[0].message.content;
     }
     
     async function handleSend() {
-        if(isProcessing) return;
-        let prompt = document.getElementById('promptInput').value.trim();
-        if(!prompt) return;
-        if(usedRequests >= maxRequests && currentTier !== "team") {
-            await addAssistantMessage(`⚠️ **Лимит запросов (${maxRequests}) исчерпан.**`, getModeName());
+        if(isProcessing) {
+            showToast('Подождите, ответ уже генерируется');
             return;
         }
+        
+        let prompt = document.getElementById('promptInput').value.trim();
+        if(!prompt && !attachedFile) return;
+        
+        if(usedRequests >= maxRequests && currentTier !== "team") { 
+            await addAssistantMessage(`Лимит запросов (${maxRequests}) исчерпан. Обновите тариф до Pro или Team для продолжения.`, getModeName()); 
+            return; 
+        }
+        
         isProcessing = true;
         document.getElementById('sendBtn').disabled = true;
-        await addUserMessage(prompt);
-        document.getElementById('promptInput').value = "";
-        let processContainer = await showProcessSteps();
-        let chat = chats.find(c => c.id === activeChatId);
-        let chatHistory = [];
-        if(chat) {
-            let lastMessages = chat.messages.slice(-10);
-            for(let msg of lastMessages) {
-                if(msg.role === 'user') chatHistory.push({ role: "user", content: msg.content });
-                else if(msg.role === 'assistant') chatHistory.push({ role: "assistant", content: msg.content });
+        
+        let processContainer = null;
+        let fileInfo = attachedFile;
+        
+        try {
+            let finalPrompt = prompt;
+            if(fileInfo) { 
+                finalPrompt = prompt ? `${prompt}\n\n[Файл: ${fileInfo.name}]` : `[Файл: ${fileInfo.name}]`; 
             }
+            
+            await addUserMessage(finalPrompt);
+            document.getElementById('promptInput').value = "";
+            document.getElementById('promptInput').style.height = "auto";
+            
+            let isCode = isCodeRequest(prompt);
+            processContainer = await showProcessSteps(isCode);
+            
+            let chat = chats.find(c => c.id === activeChatId);
+            let chatHistory = [];
+            if(chat && chat.messages) { 
+                let lastMessages = chat.messages.slice(-10); 
+                for(let msg of lastMessages) { 
+                    if(msg.role === 'user') chatHistory.push({ role: "user", content: msg.content }); 
+                    else if(msg.role === 'assistant') chatHistory.push({ role: "assistant", content: msg.content }); 
+                } 
+            }
+            
+            let reply = await callAPI(prompt, chatHistory);
+            
+            if(processContainer && processContainer.remove) processContainer.remove();
+            await addAssistantMessage(reply, getModeName());
+            
+            if(currentTier !== "team") usedRequests++; 
+            else usedRequests++;
+            updateUsageUI(); 
+            saveUserData();
+            
+        } catch(error) {
+            console.error("Send error:", error);
+            if(processContainer && processContainer.remove) processContainer.remove();
+            await addAssistantMessage(`Ошибка: ${error.message}. Попробуйте ещё раз.`, getModeName());
+        } finally {
+            isProcessing = false;
+            document.getElementById('sendBtn').disabled = (usedRequests >= maxRequests && currentTier !== "team");
+            document.getElementById('promptInput').focus();
+            attachedFile = null;
+            document.getElementById('fileNameDisplay').innerText = '';
         }
-        let reply = await callAI(prompt, chatHistory);
-        if(processContainer) processContainer.remove();
-        await addAssistantMessage(reply, getModeName());
-        if(currentTier !== "team") usedRequests++;
-        else usedRequests++;
-        updateUsageUI();
-        saveUserData();
-        isProcessing = false;
-        document.getElementById('sendBtn').disabled = (usedRequests >= maxRequests && currentTier !== "team");
-        document.getElementById('promptInput').focus();
     }
     
-    function createNewChat() {
-        let newId = Date.now();
-        chats.push({ id: newId, title: `Чат ${chats.length + 1}`, pinned: false, messages: [] });
-        activeChatId = newId;
-        renderChatsList();
-        renderCurrentChat();
-        saveUserData();
+    function createNewChat() { 
+        let newId = Date.now(); 
+        chats.push({ id: newId, title: `Чат ${chats.length + 1}`, pinned: false, messages: [] }); 
+        activeChatId = newId; 
+        renderChatsList(); 
+        renderCurrentChat(); 
+        saveUserData(); 
     }
     
     function setPlan(plan) {
-        if(plan === "free") { currentTier = "free"; maxRequests = 5; usedRequests = Math.min(usedRequests, 5); }
-        if(plan === "pro") { currentTier = "pro"; maxRequests = 200; usedRequests = Math.min(usedRequests, 200); }
-        if(plan === "team") { currentTier = "team"; maxRequests = 1000; }
-        updateUsageUI(); saveUserData(); document.getElementById('plansModal').style.display = "none";
-        addAssistantMessage(`**Тариф ${plan === 'free' ? 'Free' : plan === 'pro' ? 'Pro' : 'Team'} активирован.** Теперь ${maxRequests} запросов.`, getModeName());
+        if(plan === "free" && currentTier !== "free") return;
+        if(plan === "pro" && currentTier === "team") return;
+        if(plan === "free") { currentTier = "free"; maxRequests = 5; usedRequests = Math.min(usedRequests, 5); addNotification('Тариф изменён', 'Вы перешли на тариф Free'); }
+        else if(plan === "pro") { currentTier = "pro"; maxRequests = 200; usedRequests = Math.min(usedRequests, 200); addNotification('Тариф изменён', 'Вы перешли на тариф Pro. 200 запросов в месяц.'); }
+        else if(plan === "team") { currentTier = "team"; maxRequests = 1000; addNotification('Тариф изменён', 'Вы перешли на тариф Team. Безлимит.'); }
+        updateUsageUI(); saveUserData(); document.getElementById('plansModal').style.display = "none"; updatePlansModalUI();
+        addAssistantMessage(`Тариф ${plan === 'free' ? 'Free' : plan === 'pro' ? 'Pro' : 'Team'} активирован. Теперь вам доступно ${maxRequests} запросов в месяц.`, getModeName());
     }
     
     function attachEventListeners() {
         document.getElementById('newChatSidebarBtn').addEventListener('click', createNewChat);
-        document.getElementById('showPlansBtn').addEventListener('click', () => document.getElementById('plansModal').style.display = 'flex');
+        document.getElementById('showPlansBtn').addEventListener('click', () => { updatePlansModalUI(); document.getElementById('plansModal').style.display = 'flex'; });
         document.getElementById('closeModalBtn').addEventListener('click', () => document.getElementById('plansModal').style.display = 'none');
         document.querySelectorAll('.selectPlanBtn').forEach(btn => btn.addEventListener('click', (e) => setPlan(e.target.getAttribute('data-plan'))));
         document.getElementById('sendBtn').addEventListener('click', handleSend);
         document.getElementById('promptInput').addEventListener('keydown', (e) => { if(e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); } });
+        document.getElementById('promptInput').addEventListener('input', function() { this.style.height = 'auto'; this.style.height = Math.min(100, this.scrollHeight) + 'px'; });
         window.addEventListener('click', (e) => { if(e.target === document.getElementById('plansModal')) document.getElementById('plansModal').style.display = 'none'; });
     }
     
-    if(loadUser()) {
-        initApp();
-    } else {
-        showAuthModal();
-    }
+    if(loadUser()) { initApp(); } else { showAuthModal(); }
 </script>
 </body>
 </html>
